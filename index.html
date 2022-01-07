@@ -1,0 +1,1245 @@
+
+    <!DOCTYPE html>
+    <html lang="he">
+    
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>חקר כלי ג' - פרזנטציה</title>
+      <link rel="stylesheet" href="css/style.css">
+
+
+
+     <!-- Chrome, Firefox OS and Opera -->
+     <meta name="theme-color" content="#434a54">
+     <!-- Windows Phone -->
+     <meta name="msapplication-navbutton-color" content="#434a54">
+     <!-- iOS Safari -->
+     <meta name="apple-mobile-web-app-status-bar-style" content="#434a54">
+ 
+ 
+<style>
+
+
+.container-logoClient{
+  position: absolute;
+    left: 0%;
+    width: 100vw;
+    height: 15vh;
+    bottom: 0px;
+    z-index: 8;
+}
+
+
+  body .logoClient {
+      display: block;
+    width: 200px;
+    height: auto;
+    margin: 20px auto;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+  }
+
+  .slice-client-loader{
+    opacity: 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) !important;
+    z-index: -9;
+    width: 550px !important;
+    animation-name: wraper-client-logo-animation;
+    animation-duration: 9s;
+
+  }
+
+  .slice-client-loader .logo-img{
+    position:absolute;
+    width: 550px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+.slice-client-loader-logo-wrapper{
+  overflow: hidden;
+    width: 0px;
+    display: block;
+    opacity:0;
+    height: 110px;
+    position: absolute;
+    animation-name: client-logo-animation;
+  animation-duration: 4.9s;
+
+}
+@keyframes wraper-client-logo-animation {
+  0%   {width: 550px; opacity:1;z-index: 9;}
+  97%   {width: 550px; opacity:1;z-index: 9;}
+  100%   {width: 550px; opacity:0;z-index: 9;}
+  
+}
+@keyframes client-logo-animation {
+  0%   {width: 0px; opacity:1;z-index: 9;}
+  10%   {width: 30px; opacity:1;z-index: 9;}
+  30%   {width: 96px; opacity:1;z-index: 9;}
+  34%   {width: 110px; opacity:1;z-index: 9;}
+  40%   {width: 200px; opacity:1;z-index: 9;}
+  40.3%   {width: 230px; opacity:1;z-index: 9;}
+  80%   {width: 460px; opacity:1;z-index: 9;}
+  97%   {width: 550px; opacity:1;z-index: 9;}
+  100%   {width: 550px; opacity:0;z-index: 9;}
+  
+}
+
+  .slice-client-loader-back{
+    opacity: 0.3;
+  }
+
+  .hide-after-load{
+    display: none !important;
+  }
+
+  
+  
+</style>   
+
+
+ <script>
+
+ ///////  LOADER
+ setTimeout(function(){ 
+  var hideAfterLoad = document.getElementsByClassName('show-me-after-load');
+
+  for (var i = 0; i < hideAfterLoad.length; i++) {
+    hideAfterLoad[i].classList.remove('hide-after-load');
+}
+
+
+ 
+
+var checkExist = setInterval(function() {
+  if (document.getElementById('slice-client-loader')) {
+     console.log("Exists!");
+     document.getElementById('slice-client-loader').classList.add('hide-after-load');
+     clearInterval(checkExist);
+  }
+}, 500); // check every 500ms
+
+
+  // document.getElementById('slice-client-loader').classList.add('hide-after-load');
+
+///  document.getElementById('frontHeader').classList.remove('hide-after-load')
+
+ },   5200);
+
+
+ var DEBUG = false;
+// ENABLE/DISABLE Console Logs
+if(!DEBUG){ 
+  window.console.log = function() {}
+}
+ </script>
+      <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+      <script src="scorm.js" type="text/javascript"></script>
+      <script type="text/javascript">
+
+      var scormApi = new Scorm({
+          exitValue: null,
+          score: {
+              min: 0,
+              max: 100
+          },
+          rating:0,
+          debugger: function (err, msg, param, value) {
+              console.log('scorm err', err, param, value);
+          }
+      }, function (scormApi, message) { });
+
+      function initCourse() {
+          //scorm.init returns a boolean
+          lmsConnected = scormApi.initialize();
+          //If the scorm.init function succeeded...
+          if (lmsConnected) {
+              console.log('lmsConnected: ', lmsConnected);
+          }
+          window.realScore = -1;
+          window.rating = -1;
+      }
+      function moreScore(num) {
+        if(window.realScore == -1){
+          window.realScore = 0;
+        }
+          window.realScore = window.realScore + num
+      }
+
+
+      function ratingScore(num){
+        window.rating = num;
+      }
+
+
+      function lessScore(num) {
+          window.realScore = window.realScore - num
+      }
+
+      
+      function exitFunc() {
+        console.log('exittttttt');
+         
+          if (scormApi.version !== null) {
+             
+              scormApi.status("completed");
+              if(window.realScore == -1){
+
+              }else{
+                scormApi.score(window.realScore);
+              }
+
+              if(window.rating == -1){
+
+              }else{
+                scormApi.setValue("rating",window.rating);
+              }
+
+
+    
+              if( (window.realScore >= 1) || (window.realScore == -1) ){
+                // scormApi.success("passed");
+
+                var readandtest=true;
+                var readand=$("input[type='checkbox'].Readandsign");
+                if(readand.length > 0) {
+                    for(var i = 0 ; i < readand.length;i++){
+                      if( $(readand[i]).is(':checked') ){
+
+                      }else{
+                          readandtest=false;
+                      }
+                    }
+                    
+
+                    if(readandtest){
+                      scormApi.status("passed");
+
+                    }else{
+                      scormApi.status("failed");
+
+                    }
+                    }else{
+                      scormApi.status("passed");
+                      scormApi.success("passed");
+
+                    }
+             
+
+              }else{
+                scormApi.success();
+
+              }
+              scormApi.terminate();
+
+
+
+          }
+         
+          //window.close();
+      }
+
+      function exitScreen() {
+        window.close();
+      }
+
+
+
+      // my edit for leumi
+      initCourse();
+  </script>
+
+     
+      
+    </head>
+    <body>
+      <div id="loader">
+        <div class="preloader"></div>
+      </div>
+      <div id="LinkUrl"></div> 
+    <div id="fullPageOverlay" class="display-none"></div>
+
+    <!--  ----------------            MENU           ---------------     -->
+
+    
+    <div id="scrollIndicator" class="bg-color-primary display-none" style="width:1%"></div>
+    <button id="menu-hamburger" class="animated slideInDown box-shadow glossyHover  menu-transition show-me-after-load hide-after-load" aria-label="Menu">
+    
+
+  <div class="hamburger-line menu-transition first-hamburger-line"></div>
+  <div class="hamburger-line hamburger-line-middle menu-transition"></div>
+  <div class="hamburger-line menu-transition third-hamburger-line"></div>
+
+  <div class="glossy transition"></div>
+
+</button>
+
+    <div id="menu" class="transition">
+
+    <div class="menu-header-bg LinkUrlChange" style="background-image: url(uploads/1641560450905.jpg);">
+    <h1 class="menu-h1 bold"><strong>חקר כלי ג&#39; - פרזנטציה</strong></h1>
+
+            <div class="darkOpacity"></div>
+            <div id="advence-precent" class="bg-color-primary" style="width: 1%;"> 0% </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-centered pM-0">
+                <ul class="menu-ul  pM-0">
+
+
+                <li class=" oneHalfRem hoverBgSecondary  transition-half GoToChapter bg-color-secondary" data-tos="first-page"  role="button" aria-label="Navigation to Home">
+                <div class="progMenuLi" style="width:100%"></div> <i class="fas fa-home"></i> <span>דף פתיחה</span>
+               </li>
+                            
+        <li class=" oneHalfRem hoverBgSecondary   transition-half GoToChapter " data-tos="i1" role="button" aria-label="Navigation to chapter: הארגון שלנו" >
+        <div class="progMenuLi"></div> <i class="fas fa-equals"></i> <span>הארגון שלנו</span>
+        </li>
+        
+        <li class=" oneHalfRem hoverBgSecondary   transition-half GoToChapter " data-tos="i2" role="button" aria-label="Navigation to chapter: הפתרון" >
+        <div class="progMenuLi"></div> <i class="fas fa-equals"></i> <span>הפתרון</span>
+        </li>
+        
+        <li class=" oneHalfRem hoverBgSecondary   transition-half GoToChapter " data-tos="i3" role="button" aria-label="Navigation to chapter: מה הכלי מציע" >
+        <div class="progMenuLi"></div> <i class="fas fa-equals"></i> <span>מה הכלי מציע</span>
+        </li>
+        
+        <li class=" oneHalfRem hoverBgSecondary   transition-half GoToChapter " data-tos="i4" role="button" aria-label="Navigation to chapter: הצגת הכלי" >
+        <div class="progMenuLi"></div> <i class="fas fa-equals"></i> <span>הצגת הכלי</span>
+        </li>
+        
+        <li class=" oneHalfRem hoverBgSecondary   transition-half GoToChapter " data-tos="i5" role="button" aria-label="Navigation to chapter: התאמת הכלי לצורך שלנו" >
+        <div class="progMenuLi"></div> <i class="fas fa-equals"></i> <span>התאמת הכלי לצורך שלנו</span>
+        </li>
+        
+        <li class=" oneHalfRem hoverBgSecondary   transition-half GoToChapter " data-tos="i6" role="button" aria-label="Navigation to chapter: חסרונות" >
+        <div class="progMenuLi"></div> <i class="fas fa-equals"></i> <span>חסרונות</span>
+        </li>
+         
+            </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="menu-backgroundBlack" class="transition"></div>
+
+    </div>
+    <!--  ----------------     MENU     ---------------     -->
+
+     
+    
+
+    <!--  ----------------    first-page      ---------------     -->
+    <div id="first-page" class="chaptersData">
+    <header class="wow slideInDown fullHeader transition-fullHeader LinkUrlChange" style="background-image: url(uploads/1641560450905.jpg);">
+
+
+          
+      
+
+
+            <div class="row frontHeader show-me-after-load hide-after-load">
+                <div class="col-lg-9 col-centered">
+                    <h1 class="bigFont    wow fadeInDown" data-wow-delay="0.4s"><strong>חקר כלי ג&#39; - פרזנטציה</strong></h1>
+                    <p class="color-white  wow fadeIn" data-wow-delay="0.8s">אלה שרתיאל ושחר כהן</p>
+                    <div class="headerDiveder   wow fadeIn" data-wow-delay="1.2s"></div>
+                    </br>
+                    <p class="col-lg-9 color-white pM-0 float-none  wow fadeIn" data-wow-delay="0.9s">
+                    בלומדה זו תוכלו ללמוד על למה ואיך בחרנו להשתמש בכלי Slice בארגון שלנו
+                    </p>
+
+
+               <div class="ctaContainer wow fadeInUp" data-wow-delay="1.6s">
+                   
+                        <button class="cta border-radius-BB bg-color-primary   glossyHover   GoToChapter" href="#"
+                        data-tos="i1">
+
+                        <span>בואו נתחיל!</span>
+                        
+                        <i class="ctaIcon fas fa-angle-down animated zoomIn animation-duration-2"></i>
+
+                        </button>
+                    
+                </div>
+
+
+                    <br>
+
+                      <button class="moreChapters transition border-radius-BB  wow fadeInUp  " data-wow-delay="2s">
+                      רשימת הפרקים
+                  </button>
+                  
+                </div>
+            </div>
+            <div class="darkOpacity"></div>
+
+            <img class="logoClient LinkUrlChange show-me-after-load hide-after-load" src="uploads/1641560257462.png" alt="logo">
+
+
+<div id="slice-client-loader" class="slice-client-loader">
+<div class="slice-client-loader-logo-wrapper">
+<div class="logo-img slice-client-loader-front"
+style="background-image: url('uploads/1641560257462.png')" ></div></div>
+<div class="logo-img slice-client-loader-back" style="background-image: url('uploads/1641560257462.png')">
+
+</div></div>
+
+
+        </header>
+
+    </div>
+    <!--  ----------------            first-page           ---------------     -->
+
+  <div id="i1" class="display-none  chaptersData"> 
+
+        <button class="prevChapter  GoToChapter bg-light-color-top hoverBgPrimary transition-half wow fadeIn"
+            data-wow-delay="2s" data-tos="first-page">
+            <div class="ChapterPrevChangeBg transition-half"></div>
+
+            <div class="col-lg-9 col-centered text-center">
+
+                <i class="fas fa-angle-up animated infinite fadeInUp animation-duration-2"></i>
+                <p class="bold"> דף פתיחה </p>
+
+            </div>
+        </button>
+ 
+
+        
+      
+      
+      <div class="chapter-header bg-light-color ">
+      <div class="col-lg-9 col-centered">
+      <p>פרק 6 / 1 </p>
+      <h2 class="chapter-title bold "> הארגון שלנו </h2>
+          <div class="chapter-divider bg-color-primary "></div>
+      </div>
+  </div>
+
+  <div class="">
+  <div id="61d8636f4766d0002aee0879" class="menuBarOnOver class_61d8636f4766d0002aee0879 " > <div _ngcontent-c5="" class="Img-background-300 textPImg z-index-minus-1-onExport LinkUrlChange webc-parralax" style="background-image: url(&quot;uploads/1641560450905.jpg&quot;);" id="61d8636f4766d0002aee0879_image1" aria-label="img" src="uploads/1641560450905.jpg"><div _ngcontent-c5="" class="text-wrap-Pimg"><div _ngcontent-c5="" class="H2-Poa word-break fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">אנחנו <strong>עולם האסטרונומיה</strong></p></div></div></div></div><div _ngcontent-c5="" class="bgSolid darkOpacity z-index-minus-1-onExport"></div></div><div _ngcontent-c5="" class=" display-none position-absolute-middle  Not-ok CancelDisplayNone uploadBtnFloat"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-117 ng-star-inserted"><!----></nz-tooltip><br _ngcontent-c5=""><button _ngcontent-c5="" class="widthhight ant-btn ant-tooltip-open ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-clicked ant-btn-icon-only bg-color-primary color-white" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" img-change="61d8636f4766d0002aee0879_image1"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-compass font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-118 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="fas fa-deaf font15 ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-119 ng-star-inserted"><!----></nz-tooltip></div></div><div id="61d863a14766d0002aee087b" class="menuBarOnOver class_61d863a14766d0002aee087b " > <div _ngcontent-c5="" id="61d863a14766d0002aee087b" class="class_61d863a14766d0002aee087b"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="row"><div _ngcontent-c5="" class="col-lg-6 col-lg-6-right-padding-fix"><div _ngcontent-c5="" class="fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p><br></p><p>רקע...</p><p><br></p><p>מספר עובדים:&nbsp;</p><p>מספר לקוחות:&nbsp;</p><p>פריסה ארצית:&nbsp;</p></div></div><div class="fr-quick-insert" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div><div _ngcontent-c5="" class="col-lg-6"><img _ngcontent-c5="" class="Img1 border-radius-BB box-shadow LinkUrlChange" id="61d863a14766d0002aee087b_image1" src="uploads/default.jpg" alt="img"><div _ngcontent-c5="" class=" display-none  Not-ok CancelDisplayNone uploadBtnFloat"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-130 ng-star-inserted"><!----></nz-tooltip><br _ngcontent-c5=""><button _ngcontent-c5="" class="widthhight visibilityHidden ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" img-change="61d863a14766d0002aee087b_image1"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-131 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight center-secondery-btn ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="fas fa-deaf font15 ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-132 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></section></div></div><div id="61d863bf4766d0002aee087c" class="menuBarOnOver class_61d863bf4766d0002aee087c " > <div _ngcontent-c5="" id="61d863bf4766d0002aee087c" class="class_61d863bf4766d0002aee087c"><section _ngcontent-c5="" class="template-container template-container-pedding-flip  bg-light-color   wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="template-p font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="font-size: 30px;"><strong>הצורך העסקי</strong></span></p></div></div><div class="fr-quick-insert fr-hidden" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div></section></div></div><div id="61d863ed4766d0002aee087d" class="menuBarOnOver class_61d863ed4766d0002aee087d " > <div _ngcontent-c5="" id="61d863ed4766d0002aee087d" class="class_61d863ed4766d0002aee087d"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="grid-row"><div _ngcontent-c5="" class="position-relative"><div _ngcontent-c5="" class="template-container"><ul _ngcontent-c5="" class="line"><!----><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d863ed4766d0002aee087d0"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>התרחבות העסק ועלייה בביקוש</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d863ed4766d0002aee087d1"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>קליטת מדריכים חדשים</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d863ed4766d0002aee087d2"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>צורך בפתרון מהיר להכשרה</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d863ed4766d0002aee087d3"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>מעקב והערכת הלמידה<br></p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li></ul><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone addcolaps extraChet ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-plus-circle-o ng-star-inserted" style="display: inline-block;"></i><span style=""> הוספת רשימה </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-821 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></section></div></div><div id="61d864444766d0002aee087f" class="menuBarOnOver class_61d864444766d0002aee087f " > <div _ngcontent-c5="" id="61d864444766d0002aee087f" class="class_61d864444766d0002aee087f"><div _ngcontent-c5="" class="Img-background-300 textPImg z-index-minus-1-onExport LinkUrlChange webc-parralax" style="background-image: url(&quot;uploads/1641560450905.jpg&quot;);" id="61d864444766d0002aee087f_image1" aria-label="img" src="uploads/1641560450905.jpg"><div _ngcontent-c5="" class="text-wrap-Pimg"><div _ngcontent-c5="" class="H2-Poa word-break fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><strong>אז מה עושים?</strong></p></div></div></div></div><div _ngcontent-c5="" class="bgSolid darkOpacity z-index-minus-1-onExport"></div></div><div _ngcontent-c5="" class=" display-none position-absolute-middle  Not-ok CancelDisplayNone uploadBtnFloat"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-160 ng-star-inserted"><!----></nz-tooltip><br _ngcontent-c5=""><button _ngcontent-c5="" class="widthhight ant-btn bg-color-primary color-white ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" img-change="61d864444766d0002aee087f_image1"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-compass font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-161 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="fas fa-deaf font15 ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-162 ng-star-inserted"><!----></nz-tooltip></div></div></div>
+   </div>
+
+          
+          
+          <button class="endChapter   bg-light-color hoverBgPrimary transition-half    GoToChapter    wow fadeIn"
+              data-wow-delay="0.3s" data-tos="i2">
+              <div class="ChapterChangeBg transition-half"></div>
+  
+
+            <div class="col-lg-9 col-centered text-center">
+                <p>לפרק הבא:</p>
+                <h3 class=" bold">הפתרון</h3>
+                <i class="fas fa-angle-down animated infinite fadeInDown animation-duration-2"></i>
+            </div>
+        </button>
+        </div><!-- end of chapter   -->
+  <div id="i2" class="display-none  chaptersData"> 
+        <button class="prevChapter  GoToChapter bg-light-color-top hoverBgPrimary transition-half wow fadeIn"
+        data-wow-delay="2s" data-tos="i1">
+        <div class="ChapterPrevChangeBg transition-half"></div>
+
+        <div class="col-lg-9 col-centered text-center">
+
+            <i class="fas fa-angle-up animated infinite fadeInUp animation-duration-2"></i>
+            <p class="bold"> לפרק הקודם </p>
+
+        </div>
+      </button>
+        
+
+      
+      
+      <div class="chapter-header bg-light-color ">
+      <div class="col-lg-9 col-centered">
+      <p>פרק 6 / 2 </p>
+      <h2 class="chapter-title bold "> הפתרון </h2>
+          <div class="chapter-divider bg-color-primary "></div>
+      </div>
+  </div>
+
+  <div class="">
+  <div id="61d864914766d0002aee0881" class="menuBarOnOver class_61d864914766d0002aee0881 " > <div _ngcontent-c5="" style="text-align: center;" id="61d864914766d0002aee0881" class="class_61d864914766d0002aee0881"><app-free-style _ngcontent-c5="" _nghost-c14=""><div _ngcontent-c14="" class="freestyle_css_settings display-none CancelDisplayNone display_none_export ignore_mousedown_freestyle freestyle_menu_show_h" id="freestyle_css_options_61d864914766d0002aee0881"><i _ngcontent-c14="" class="fas fa-angle-double-left freestyle_collapse freestyle_collapse_close_horizontal"></i><div _ngcontent-c14="" class="flex-evenly freestyle_basic_settings"><div _ngcontent-c14="" class="freestyle_menu_option flex-center" style="height: 100%"><i _ngcontent-c14="" class="freestyle_option_logo fas fa-plus"></i><!----></div><div _ngcontent-c14="" class="freestyle_menu_option flex-center" style="height: 100%"><i _ngcontent-c14="" class="freestyle_option_logo anticon anticon-appstore-o"></i><!----></div><div _ngcontent-c14="" class="freestyle_menu_option flex-center" style="height: 100%"><i _ngcontent-c14="" class="freestyle_option_logo anticon anticon-laptop"></i><!----></div><div _ngcontent-c14="" class="freestyle_menu_option flex-center" style="height: 100%"><i _ngcontent-c14="" class="freestyle_option_logo fas fa-layer-group"></i><!----></div></div><!----></div><!----><!----><!----><div _ngcontent-c14="" class="freestyle_components_cont display-none CancelDisplayNone display_none_export ignore_mousedown_freestyle ng-star-inserted" id="freestyle_comp_window_61d864914766d0002aee0881"><div _ngcontent-c14="" class="freestyle_window_title moveable_window take_parent flex-between theme-direction"> רכיבים <i _ngcontent-c14="" class="far fa-times-circle"></i></div><!----><div _ngcontent-c14="" class="freestyle_component_choose ng-star-inserted"><div _ngcontent-c14="" class="freestyle_arrows_zIndex"><!----><!----><i _ngcontent-c14="" class="fas fa-caret-down flex-center ng-star-inserted"></i></div><!----><input _ngcontent-c14="" class="freestyle_comp_name freestyle_not_editable ng-untouched ng-pristine ng-valid ng-star-inserted" readonly="" type="text"><!----><div _ngcontent-c14="" class="freestyle_components_options flex-align"><button _ngcontent-c14="" nz-popconfirm="" nzplacement="bottom" style="border: none; background: transparent;"><i _ngcontent-c14="" class="anticon anticon-delete freestyle_comp_btn freestyle_opacity_hover"></i></button><nz-popconfirm _nghost-c32="" class="ng-tns-c32-344 ng-star-inserted"><!----></nz-popconfirm><i _ngcontent-c14="" class="far fa-copy freestyle_comp_btn freestyle_opacity_hover"></i><i _ngcontent-c14="" class="fas fa-lock freestyle_comp_btn freestyle_opacity_hover" style="color: rgb(177, 177, 177);"></i><i _ngcontent-c14="" class="fas fa-eye-slash freestyle_comp_btn freestyle_opacity_hover" style="color: rgb(177, 177, 177);"></i></div></div><div _ngcontent-c14="" class="freestyle_component_choose ng-star-inserted"><div _ngcontent-c14="" class="freestyle_arrows_zIndex"><!----><i _ngcontent-c14="" class="fas fa-caret-up flex-center ng-star-inserted"></i><!----></div><!----><input _ngcontent-c14="" class="freestyle_comp_name freestyle_not_editable ng-untouched ng-pristine ng-valid ng-star-inserted" readonly="" type="text"><!----><div _ngcontent-c14="" class="freestyle_components_options flex-align"><button _ngcontent-c14="" nz-popconfirm="" nzplacement="bottom" style="border: none; background: transparent;"><i _ngcontent-c14="" class="anticon anticon-delete freestyle_comp_btn freestyle_opacity_hover"></i></button><nz-popconfirm _nghost-c32="" class="ng-tns-c32-345 ng-star-inserted"><!----></nz-popconfirm><i _ngcontent-c14="" class="far fa-copy freestyle_comp_btn freestyle_opacity_hover"></i><i _ngcontent-c14="" class="fas fa-lock freestyle_comp_btn freestyle_opacity_hover" style="color: rgb(177, 177, 177);"></i><i _ngcontent-c14="" class="fas fa-eye-slash freestyle_comp_btn freestyle_opacity_hover" style="color: rgb(177, 177, 177);"></i></div></div></div><div _ngcontent-c14="" class="freestyle_bg_cont" style="height: initial; width: initial; margin: initial; border: initial; overflow: auto; border-radius: initial; outline: initial; box-shadow: initial;"><div _ngcontent-c14="" class="LinkUrlChange free-background freestyle_bg_full" id="61d864914766d0002aee0881_freestyle_bg" style="height: 702.018px; background-color: rgb(112, 73, 157);"><i _ngcontent-c14="" class="fas fa-angle-double-right freestyle_collapse freestyle_collapse_open_horizontal display-none CancelDisplayNone display_none_exportToFlex freestyle_menu_hide_h"></i><!----><div _ngcontent-c14="" class="freestyle_backdrop ignore_mousedown_freestyle freestyle_exit_enlarge display-none" id="freestyle_backdrop_61d864914766d0002aee0881"><div _ngcontent-c14="" class="freestyle_enlarged display-none" id="freestyle_enlarge_img_61d864914766d0002aee0881"></div><video _ngcontent-c14="" class="display-none freestyle_enlarged" controls="" id="freestyle_enlarge_vid_61d864914766d0002aee0881"></video></div><!----><!----><!----><div _ngcontent-c14="" class="free-new animated none ng-star-inserted freestyle_animate_disable" id="freestyle_text_61d864914766d0002aee0881_0" arr="texts" data-tos="i1" style="display: block; opacity: 1; z-index: 2; cursor: auto; animation-iteration-count: 1; animation-duration: 1s; animation-name: none; animation-delay: 0s; animation-fill-mode: none; animation-timing-function: ease; animation-direction: normal; transform: rotate(0deg); outline: none; width: 19.9687%; height: 10.8262%; left: 41.3347%; top: 10.4274%; transition: none 0s ease 0s;"><!----><textarea _ngcontent-c14="" class="nonresize free-new-text take_parent ng-star-inserted" readonly="" style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgba(255, 255, 255, 0); color: rgb(255, 255, 255); text-align: center; border-radius: 0px; border-width: 2px; border-color: rgba(0, 0, 0, 0); line-height: 21.762px; letter-spacing: 0px; padding: 18.603px; font-weight: bold; text-decoration: initial; cursor: auto; font-style: initial; overflow: hidden; font-size: 53.704px;" font="28" id="freestyle_innerText_61d864914766d0002aee0881_0">מחולל הלומדות</textarea><!----><div _ngcontent-c14="" class="freestyle_comp_offset freestyle_offset_horizontal display-none" id="freestyle_offset_horizontal_texts_61d864914766d0002aee0881_0"></div><div _ngcontent-c14="" class="freestyle_comp_offset freestyle_offset_vertical display-none" id="freestyle_offset_vertical_texts_61d864914766d0002aee0881_0"></div><!----><!----><!----><!----><!----><!----><!----><!----></div><!----><div _ngcontent-c14="" class="ng-star-inserted freestyle_hover_anim free-new-img animated free-new none" id="freestyle_img_61d864914766d0002aee0881_0" arr="imgs" data-tos="i1" style="background-image: url(&quot;uploads/1641571684184.PNG&quot;); border: 0px solid rgb(0, 0, 0); border-radius: 39px; animation-iteration-count: infinite; animation-duration: 1.5s; animation-delay: 0s; animation-fill-mode: none; animation-timing-function: ease; animation-direction: normal; opacity: 1; transform: rotate(0deg); z-index: 1; cursor: auto; background-position: 50% 50%; display: block; outline: none; width: 44.2649%; height: 40.5983%; left: 27.8936%; top: 30.7692%; transition: none 0s ease 0s; animation-name: none;" src="uploads/1641571684184.PNG"><!----><div _ngcontent-c14="" class="freestyle_comp_offset display-none" id="freestyle_offset_horizontal_imgs_61d864914766d0002aee0881_0" style="height: calc(100% + 0px); width: 400vw; left: -200vw; top: 0px;"></div><div _ngcontent-c14="" class="freestyle_comp_offset display-none" id="freestyle_offset_vertical_imgs_61d864914766d0002aee0881_0" style="width: calc(100% + 0px); height: 400vw; top: -200vw; left: 0px;"></div><!----><!----><!----><!----><!----><!----><!----><!----></div><!----><!----><!----></div></div></app-free-style></div></div><div id="61d883024766d0002aee08a8" class="menuBarOnOver class_61d883024766d0002aee08a8 " > <div _ngcontent-c5="" id="61d883024766d0002aee08a8" class="class_61d883024766d0002aee08a8"><section _ngcontent-c5="" class="template-container template-container-pedding-flip  bg-light-color   wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="template-p font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>סלייס הוא מחולל תוכן חדשני ~~~~~~~~~~~~~~~~~</p></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div><div class="fr-quick-insert" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div></section></div></div><div id="61d867584766d0002aee0884" class="menuBarOnOver class_61d867584766d0002aee0884 " > <div _ngcontent-c5="" class="imgContsiner template-container"><iframe _ngcontent-c5="" allowfullscreen="" class="img-template-1 LinkUrlChange" frameborder="0" mozallowfullscreen="" style="height: 500px;" webkitallowfullscreen="" id="61d867584766d0002aee0884_vid1" src="https://www.youtube.com/embed/5cOCxCQFZ0w"></iframe><div _ngcontent-c5="" class=" display-none  Not-ok CancelDisplayNone uploadBtnFloat"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-link ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-382 ng-star-inserted"><!----></nz-tooltip></div></div></div><div id="61d8687b4766d0002aee0888" class="menuBarOnOver class_61d8687b4766d0002aee0888 " > <div _ngcontent-c5="" id="61d8687b4766d0002aee0888" class="class_61d8687b4766d0002aee0888"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="grid-row"><div _ngcontent-c5="" aria-multiselectable="true" class="panel-group " id="accordion2" role="tablist"><div _ngcontent-c5="" class="width-100 margin-b-4 "></div><div _ngcontent-c5="" class="position-relative"><div _ngcontent-c5="" class="template-container"><ul _ngcontent-c5="" class="chatUL"><!----><li _ngcontent-c5="" class="font-md templater-li-chat wow fadeIn chet-full ng-star-inserted" data-wow-offset="10" style="visibility: visible;"><!----><div _ngcontent-c5="" class="ng-star-inserted"><div _ngcontent-c5="" class="portrait-chat portrait-left"><!----><img _ngcontent-c5="" class="man1 replaceAssets new-chat-img ng-star-inserted" id="61d8687b4766d0002aee0888_image1" src="uploads//photo-1601233749202-95d04d5b3c00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMzk5MTl8MHwxfHNlYXJjaHwxMHx8c3VycHJpc2VkfGVufDB8fHx8MTY0MTU3NTkyNA&ixlib=rb-1.2.1&q=80&w=400"><!----><button _ngcontent-c5="" class="btn-chat display-none CancelDisplayNone ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed" style="position: absolute; left: -32px;"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-409 ng-star-inserted"><!----></nz-tooltip></div></div><!----><div _ngcontent-c5="" class="btn-chat-container display-none CancelDisplayNoneToFlex"><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-swap card-icon-swap ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-407 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-408 ng-star-inserted"><!----></nz-tooltip></div><div _ngcontent-c5="" class="font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="color: rgb(40, 50, 78);">מה?! מה זה הכלי המשוגע הזה ואיך עדיין לא שמעתי עליו???</span></p></div></div></div></li><li _ngcontent-c5="" class="font-md templater-li-chat wow fadeIn chet-outline ng-star-inserted" data-wow-offset="10" style="visibility: visible;"><!----><div _ngcontent-c5="" class="portrait-chat portrait-right ng-star-inserted"><!----><!----><img _ngcontent-c5="" class="man2 replaceAssets new-chat-img ng-star-inserted" src="../../assets/img/redman.png" style="max-width: 100%;" id="61d8687b4766d0002aee0888_image2"><button _ngcontent-c5="" class="btn-chat display-none CancelDisplayNone ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed" style="position: absolute; right: -32px;"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-412 ng-star-inserted"><!----></nz-tooltip></div><!----><div _ngcontent-c5="" class="btn-chat-container display-none CancelDisplayNoneToFlex"><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-swap card-icon-swap ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-410 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-411 ng-star-inserted"><!----></nz-tooltip></div><div _ngcontent-c5="" class="font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">אוקיי, קודם כל - תירגע...</p></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div></div></li><li _ngcontent-c5="" class="font-md templater-li-chat wow fadeIn ng-star-inserted chet-outline" data-wow-offset="10" style="visibility: visible;"><!----><div _ngcontent-c5="" class="portrait-chat portrait-right ng-star-inserted"><!----><!----><img _ngcontent-c5="" class="man2 replaceAssets new-chat-img ng-star-inserted" src="../../assets/img/redman.png" style="max-width: 100%;" id="61d8687b4766d0002aee0888_image2"><button _ngcontent-c5="" class="btn-chat display-none CancelDisplayNone ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed" style="position: absolute; right: -32px;"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-421 ng-star-inserted"><!----></nz-tooltip></div><!----><div _ngcontent-c5="" class="btn-chat-container display-none CancelDisplayNoneToFlex"><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-swap card-icon-swap ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-418 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-419 ng-star-inserted"><!----></nz-tooltip></div><div _ngcontent-c5="" class="font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">הכלי הזה הוא כלי חדש יחסית, שפותח ומפותח על ידי חברה ישראלית!</p></div></div></div></li><li _ngcontent-c5="" class="font-md templater-li-chat wow fadeIn chet-full ng-star-inserted" data-wow-offset="10" style="visibility: visible;"><!----><div _ngcontent-c5="" class="ng-star-inserted"><div _ngcontent-c5="" class="portrait-chat portrait-left"><!----><img _ngcontent-c5="" class="man1 replaceAssets new-chat-img ng-star-inserted" id="61d8687b4766d0002aee0888_image1" src="uploads//photo-1601233749202-95d04d5b3c00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMzk5MTl8MHwxfHNlYXJjaHwxMHx8c3VycHJpc2VkfGVufDB8fHx8MTY0MTU3NTkyNA&ixlib=rb-1.2.1&q=80&w=400"><!----><button _ngcontent-c5="" class="btn-chat display-none CancelDisplayNone ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed" style="position: absolute; left: -32px;"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-424 ng-star-inserted"><!----></nz-tooltip></div></div><!----><div _ngcontent-c5="" class="btn-chat-container display-none CancelDisplayNoneToFlex"><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-swap card-icon-swap ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-422 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-423 ng-star-inserted"><!----></nz-tooltip></div><div _ngcontent-c5="" class="font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="color: rgb(40, 50, 78);">טוב, זה כבר טוב מכדי להיות אמיתי...</span></p></div></div></div></li><li _ngcontent-c5="" class="font-md templater-li-chat wow fadeIn ng-star-inserted chet-outline" data-wow-offset="10" style="visibility: visible;"><!----><div _ngcontent-c5="" class="portrait-chat portrait-right ng-star-inserted"><!----><!----><img _ngcontent-c5="" class="man2 replaceAssets new-chat-img ng-star-inserted" src="../../assets/img/redman.png" style="max-width: 100%;" id="61d8687b4766d0002aee0888_image2"><button _ngcontent-c5="" class="btn-chat display-none CancelDisplayNone ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed" style="position: absolute; right: -32px;"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-428 ng-star-inserted"><!----></nz-tooltip></div><!----><div _ngcontent-c5="" class="btn-chat-container display-none CancelDisplayNoneToFlex"><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-swap card-icon-swap ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-425 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="btn-chat ant-btn ant-btn-dashed ant-btn-circle ant-btn-sm ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="small" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-426 ng-star-inserted"><!----></nz-tooltip></div><div _ngcontent-c5="" class="font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">כן, אנחנו יודעים!</p></div></div></div></li></ul><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone addcolaps extraChet ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-plus-circle-o ng-star-inserted" style="display: inline-block;"></i><span style=""> הוספת שיחה </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-406 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></section></div></div><div id="61d8699d4766d0002aee088b" class="menuBarOnOver class_61d8699d4766d0002aee088b " > <div _ngcontent-c5="" id="61d8699d4766d0002aee088b" class="class_61d8699d4766d0002aee088b"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><img _ngcontent-c5="" class="border-radius-round quote-img LinkUrlChange" id="61d8699d4766d0002aee088b_image1" alt="img" src="uploads/1641573109254.png"><div _ngcontent-c5="" class=" display-none  Not-ok CancelDisplayNone uploadBtnFloat"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-445 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight center-secondery-btn ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" style="
+                    margin-left: -30px;
+                "><!----><i _ngcontent-c5="" class="fas fa-deaf font15 ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-446 ng-star-inserted"><!----></nz-tooltip></div><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="color: rgb(111, 76, 154);"><span style="font-size: 40px;"><strong>ExperTeam</strong></span></span></p></div></div></div><div _ngcontent-c5="" class="font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">חברה ישראלית לפתרונות למידה טכנולוגיים ומענה מהיר לצרכים עסקיים</p></div></div></div></div></div></section></div></div><div id="61d86e784766d0002aee0893" class="menuBarOnOver class_61d86e784766d0002aee0893 " > <div _ngcontent-c5="" id="61d86e784766d0002aee0893" class="class_61d86e784766d0002aee0893"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="row"><div _ngcontent-c5="" class="col-lg-6 col-lg-6-right-padding-fix"><div _ngcontent-c5="" class="fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>פה יהיו כמה מילים על החברה?</p></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div><div class="fr-quick-insert" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div><div _ngcontent-c5="" class="col-lg-6"><img _ngcontent-c5="" class="Img1 border-radius-BB box-shadow LinkUrlChange" id="61d86e784766d0002aee0893_image1" src="uploads/default.jpg" alt="img"><div _ngcontent-c5="" class=" display-none  Not-ok CancelDisplayNone uploadBtnFloat"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-493 ng-star-inserted"><!----></nz-tooltip><br _ngcontent-c5=""><button _ngcontent-c5="" class="widthhight visibilityHidden ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" img-change="61d86e784766d0002aee0893_image1"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-494 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight center-secondery-btn ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="fas fa-deaf font15 ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-495 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></section></div></div><div id="61d86b4c4766d0002aee088f" class="menuBarOnOver class_61d86b4c4766d0002aee088f " > <div _ngcontent-c5="" id="61d86b4c4766d0002aee088f" class="class_61d86b4c4766d0002aee088f"><section _ngcontent-c5="" class="template-container template-container-pedding-flip  bg-light-color   wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="template-p font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="font-size: 30px;">Slice במספרים</span></p></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div><div class="fr-quick-insert" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div></section></div></div><div id="61d86b354766d0002aee088e" class="menuBarOnOver class_61d86b354766d0002aee088e " > <div _ngcontent-c5="" id="61d86b354766d0002aee088e" class="class_61d86b354766d0002aee088e"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible; animation-name: fadeIn;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="grid-row"><div _ngcontent-c5="" class="position-relative"><div _ngcontent-c5="" class="template-container"><ul _ngcontent-c5="" class="line"><!----><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d86b354766d0002aee088e0"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>??? ארגונים שמשתמשים בכלי</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d86b354766d0002aee088e1"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>??? לומדים בסך הכל</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d86b354766d0002aee088e2"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>??? מדינות</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li></ul><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone addcolaps extraChet ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-plus-circle-o ng-star-inserted" style="display: inline-block;"></i><span style=""> הוספת רשימה </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-454 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></section></div></div><div id="61d86bf34766d0002aee0890" class="menuBarOnOver class_61d86bf34766d0002aee0890 " > <div _ngcontent-c5="" id="61d86bf34766d0002aee0890" class="class_61d86bf34766d0002aee0890"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible; animation-name: fadeIn;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="chapter-divider bg-color-primary wow fadeIn" style="visibility: visible; animation-name: fadeIn;"></div><div _ngcontent-c5="" style="width:1px;height:15px"></div><div _ngcontent-c5="" class="template-p p-poa font-size-p-18 wow fadeIn fr-box fr-rtl fr-inline"  style="visibility: visible; animation-name: fadeIn;"><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>~~~~~~ הערה: פה יהיה ציר זמן~~~~</p><p>זה חלק שיענה על השאלות:</p><p>מתי סלייס נוצר?</p><p>האם היו נקודות ציון חשובות לאורך הדרך? מתי נוספו פונקציות חשובות שקיימות כיום?</p><p>כמה עדכונים היו לכלי ומתי הם היו? מתי היה העדכון האחרון?</p></div></div><div class="fr-quick-insert" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div></section></div></div>
+   </div>
+
+          
+          
+          <button class="endChapter   bg-light-color hoverBgPrimary transition-half    GoToChapter    wow fadeIn"
+              data-wow-delay="0.3s" data-tos="i3">
+              <div class="ChapterChangeBg transition-half"></div>
+  
+
+            <div class="col-lg-9 col-centered text-center">
+                <p>לפרק הבא:</p>
+                <h3 class=" bold">מה הכלי מציע</h3>
+                <i class="fas fa-angle-down animated infinite fadeInDown animation-duration-2"></i>
+            </div>
+        </button>
+        </div><!-- end of chapter   -->
+  <div id="i3" class="display-none  chaptersData"> 
+        <button class="prevChapter  GoToChapter bg-light-color-top hoverBgPrimary transition-half wow fadeIn"
+        data-wow-delay="2s" data-tos="i2">
+        <div class="ChapterPrevChangeBg transition-half"></div>
+
+        <div class="col-lg-9 col-centered text-center">
+
+            <i class="fas fa-angle-up animated infinite fadeInUp animation-duration-2"></i>
+            <p class="bold"> לפרק הקודם </p>
+
+        </div>
+      </button>
+        
+
+      
+      
+      <div class="chapter-header bg-light-color ">
+      <div class="col-lg-9 col-centered">
+      <p>פרק 6 / 3 </p>
+      <h2 class="chapter-title bold "> מה הכלי מציע </h2>
+          <div class="chapter-divider bg-color-primary "></div>
+      </div>
+  </div>
+
+  <div class="">
+  <div id="61d876d74766d0002aee0897" class="menuBarOnOver class_61d876d74766d0002aee0897 " > <div _ngcontent-c5="" id="61d876d74766d0002aee0897" class="class_61d876d74766d0002aee0897"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="tempalte-h4 bold fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">4 סוגים של לומדות:</p></div></div></div></div></section></div></div><div id="61d876a14766d0002aee0895" class="menuBarOnOver class_61d876a14766d0002aee0895 " > <div _ngcontent-c5="" id="61d876a14766d0002aee0895" class="class_61d876a14766d0002aee0895"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="overflow: auto; visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="grid-row min-hight-600"><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone addcolaps tabs ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-plus-circle-o ng-star-inserted" style="display: inline-block;"></i><span style=""> הוספת טאבים </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-634 ng-star-inserted"><!----></nz-tooltip><div _ngcontent-c5="" aria-multiselectable="true" class="panel-group " id="accordion2" role="tablist"><div _ngcontent-c5="" class="width-100 margin-b-4 "></div><!----><div _ngcontent-c5="" class="position-relative ng-star-inserted"><div _ngcontent-c5="" class="panel panel-default tabs"><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading position-relative transition-05 collapsed tabs activeTab" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" style="width: 25%;" data-serial="61d876a14766d0002aee0895" data-num="0"><button _ngcontent-c5="" class="deletCircleClass ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default" data-serial="61d876a14766d0002aee0895"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right overFlowHide "><span _ngcontent-c5="" class="word-break-p overFlowHide maxhight-85 tabsTitle fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>לומדת גלילה</p></div></div><span class="fr-counter" style="bottom: 0px; margin-left: 0px;">11/22</span></span></h4></div><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse collapse transition-05 tabs activeTab" id="" role="tabpanel" data-serial="61d876a14766d0002aee0895" data-num="0"><div _ngcontent-c5="" class="panel-body spetial-font-family P-Poa text-right padding-40"><span _ngcontent-c5="" class="P-Poa fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>לומדה שמתקדמים בה באמצעות גלילה, וניווט בין הפרקים השונים בתפריט.</p><p>כל דף יכול לכלול מגוון רחב של אלמנטים, החל מפסקאות טקסט, דרך תמונות עם אינטראקציה, ועוד המון אפשרויות.</p><p>כמו שאולי כבר ניחשתם - הלומדה הזאת - היא לומדת גלילה!</p><p><br></p><p>(קובץ ריק נע בין 2.5 ל-3 מגה בית, תלוי בהגדרות)</p></div></div></span><div _ngcontent-c5="" class="width-100"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="img-colaps margin0 imgtabs img-template-1 LinkUrlChange" style="max-width: 100%;" id="61d876a14766d0002aee0895_image_0" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d876a14766d0002aee0895"></i></div><div _ngcontent-c5="" class="center-and-block  uplaodIMGcolaps CancelDisplayNone tabbuttons" data-serial="61d876a14766d0002aee0895"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-635 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-636 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><div _ngcontent-c5="" class="panel panel-default tabs"><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading position-relative transition-05 collapsed tabs" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" style="width: 25%;" data-serial="61d876a14766d0002aee0895" data-num="1"><button _ngcontent-c5="" class="deletCircleClass ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default" data-serial="61d876a14766d0002aee0895"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right overFlowHide "><span _ngcontent-c5="" class="word-break-p overFlowHide maxhight-85 tabsTitle fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>לומדת דף אחד</p></div></div><span class="fr-counter" style="bottom: 0px; margin-left: 0px;">12/22</span></span></h4></div><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse collapse transition-05 tabs" id="" role="tabpanel" data-serial="61d876a14766d0002aee0895" data-num="1"><div _ngcontent-c5="" class="panel-body spetial-font-family P-Poa text-right padding-40"><span _ngcontent-c5="" class="P-Poa fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>דומה ללומדת הגלילה, רק שיש בה רק פרק אחד.</p><p>כל שאר האפשרויות שקיימות בלומדת הגלילה - קיימות גם כאן.</p><p>מתאים ללומדות קצרות ונקודתיות יחסית.</p><p><br></p><p>(גודל קובץ ריק - זהה ללומדת הגלילה)</p></div></div></span><div _ngcontent-c5="" class="width-100"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="img-colaps margin0 imgtabs img-template-1 LinkUrlChange extra" style="max-width: 100%;" id="61d876a14766d0002aee0895_image_1" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d876a14766d0002aee0895"></i></div><div _ngcontent-c5="" class="center-and-block  uplaodIMGcolaps CancelDisplayNone tabbuttons" data-serial="61d876a14766d0002aee0895"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-637 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-638 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><div _ngcontent-c5="" class="panel panel-default tabs"><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading position-relative transition-05 collapsed tabs" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" style="width: 25%;" data-serial="61d876a14766d0002aee0895" data-num="2"><button _ngcontent-c5="" class="deletCircleClass ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default" data-serial="61d876a14766d0002aee0895"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right overFlowHide "><span _ngcontent-c5="" class="word-break-p overFlowHide maxhight-85 tabsTitle fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>לומדת סליידר</p></div></div><span class="fr-counter" style="bottom: 0px; margin-left: 0px;">12/22</span></span></h4></div><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse collapse transition-05 tabs" id="" role="tabpanel" data-serial="61d876a14766d0002aee0895" data-num="2"><div _ngcontent-c5="" class="panel-body spetial-font-family P-Poa text-right padding-40"><span _ngcontent-c5="" class="P-Poa fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>סוג מוגבל יותר של לומדה, שבה ההתקדמות היא לא במורד הדף אלא לרוחב.</p><p>הסוג הזה מכיל בעיקר תוכן טקסטואלי, אקורדיון, ושאלות חד-ברירה.</p><p><br></p><p>(קובץ ריק שוקל כ-2.5 מגה בית)<br></p><p><br></p></div></div></span><div _ngcontent-c5="" class="width-100"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="img-colaps margin0 imgtabs img-template-1 LinkUrlChange extra" style="max-width: 100%;" id="61d876a14766d0002aee0895_image_2" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d876a14766d0002aee0895"></i></div><div _ngcontent-c5="" class="center-and-block  uplaodIMGcolaps CancelDisplayNone tabbuttons" data-serial="61d876a14766d0002aee0895"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-639 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-640 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><div _ngcontent-c5="" class="panel panel-default tabs"><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading position-relative transition-05 collapsed tabs " data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" style="width: 25%;" data-serial="61d876a14766d0002aee0895" data-num="3"><button _ngcontent-c5="" class="deletCircleClass ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default" data-serial="61d876a14766d0002aee0895"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right overFlowHide "><span _ngcontent-c5="" class="word-break-p overFlowHide maxhight-85 tabsTitle fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>לומדת וידאו</p></div></div><span class="fr-counter" style="bottom: 0px; margin-left: 0px;">11/22</span></span></h4></div><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse collapse transition-05 tabs " id="" role="tabpanel" data-serial="61d876a14766d0002aee0895" data-num="3"><div _ngcontent-c5="" class="panel-body spetial-font-family P-Poa text-right padding-40"><span _ngcontent-c5="" class="P-Poa fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>לומדה שלמה שמבוססת על סרטונים אינטראקטיביים, בפריסה בהשראת נטפליקס.</p><p>ניתן לשלב סרטונים אינטראקטיביים גם בלומדות הגלילה, אבל לומדת הוידאו מוקדשת רק להם.</p><p>מתאים במקרים שרוצים להציג את כל תוכן הלומדה כסרטונים, עם אינטראקציות שמחזקות את חוויית הלמידה והזכירה של החומר.</p><p><br></p><p>(קובץ ריק שוקל)<br></p></div></div><div class="fr-quick-insert fr-hidden" style="left: -9999px; top: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></span><div _ngcontent-c5="" class="width-100"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="img-colaps margin0 imgtabs img-template-1 LinkUrlChange extra" style="max-width: 100%;" id="61d876a14766d0002aee0895_image_3" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d876a14766d0002aee0895"></i></div><div _ngcontent-c5="" class="center-and-block  uplaodIMGcolaps CancelDisplayNone tabbuttons" data-serial="61d876a14766d0002aee0895"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-641 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-642 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div></div></div></div></section></div></div><div id="61d8791e4766d0002aee0899" class="menuBarOnOver class_61d8791e4766d0002aee0899 " > <div _ngcontent-c5="" id="61d8791e4766d0002aee0899" class="class_61d8791e4766d0002aee0899"><section _ngcontent-c5="" class="template-container template-container-pedding-flip  bg-light-color   wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="template-p font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="font-size: 40px;"><strong>ומה הכלי מציע לארגונים?</strong></span></p></div></div></div></div></section></div></div><div id="61d87a334766d0002aee089b" class="menuBarOnOver class_61d87a334766d0002aee089b " > <div _ngcontent-c5="" id="61d87a334766d0002aee089b" class="class_61d87a334766d0002aee089b"><section _ngcontent-c5="" class="template-container     wow fadeIn collapsMaster" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="grid-row"><div _ngcontent-c5="" aria-multiselectable="true" class="panel-group " id="accordion2" role="tablist"><div _ngcontent-c5="" class="width-100 margin-b-4 "><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone colaps-edit ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed" data-serial="61d87a334766d0002aee089b"><!----><i _ngcontent-c5="" class="anticon anticon-edit ng-star-inserted" style="display: inline-block;"></i><span style=""> עריכת אקורדיון </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-725 ng-star-inserted"><!----></nz-tooltip></div><!----><div _ngcontent-c5="" class="position-relative ng-star-inserted"><button _ngcontent-c5="" class="colaps-delet CancelDisplayNone"><i _ngcontent-c5="" class="anticon anticon-delete"></i></button><div _ngcontent-c5="" class="panel panel-default penel-Accor "><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading  transition-05 collapsed" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" data-serial="61d87a334766d0002aee089b" data-num="0"><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right "><div _ngcontent-c5="" class="p-Poa font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">🎨 מיתוג והתאמה אישית של הלומדה</div></div></div></h4><i _ngcontent-c5="" class="anticon  CancelDisplayNone anticon-delete colaps-delet transition-05" data-serial="61d87a334766d0002aee089b"></i><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon minus" data-icon="minus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><path _ngcontent-c5="" d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path></svg><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon plus" data-icon="plus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><defs _ngcontent-c5=""><style _ngcontent-c5=""></style></defs><path _ngcontent-c5="" d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path _ngcontent-c5="" d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-minus ancelDisplayNone collapsaddicon minus" nz-icon=""></i><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-plus CancelDisplayNone collapsaddicon plus" nz-icon=""></i><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse collapse transition-05" id="" role="tabpanel"><div _ngcontent-c5="" class="panel-body spetial-font-family font-size-16px text-right text-justify word-break"><div _ngcontent-c5="" class="text-justify colorsoft-p font-light-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">את הלומדות ניתן לעצב לפי המיתוג של העסק - מבחינת פונטים, צבעים, לוגו, ועוד.</div></div></div><div _ngcontent-c5="" class="width-100 margin-top-15"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="margin0 img-colaps img-template-1 LinkUrlChange extra" id="61d87a334766d0002aee089b_image_0" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d87a334766d0002aee089b"></i></div><div _ngcontent-c5="" class="center-and-block display-none uplaodIMGcolaps CancelDisplayNone" data-serial="61d87a334766d0002aee089b"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-727 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-728 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><button _ngcontent-c5="" class="colaps-delet CancelDisplayNone"><i _ngcontent-c5="" class="anticon anticon-delete"></i></button><div _ngcontent-c5="" class="panel panel-default penel-Accor "><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="true" arie-status="prod" class="panel-heading  transition-05 collapsed" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" data-serial="61d87a334766d0002aee089b" data-num="1"><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right "><div _ngcontent-c5="" class="p-Poa font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">💻 דרכי שימוש שונות</div></div></div></h4><i _ngcontent-c5="" class="anticon  CancelDisplayNone anticon-delete colaps-delet transition-05" data-serial="61d87a334766d0002aee089b"></i><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon minus" data-icon="minus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><path _ngcontent-c5="" d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path></svg><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon plus" data-icon="plus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><defs _ngcontent-c5=""><style _ngcontent-c5=""></style></defs><path _ngcontent-c5="" d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path _ngcontent-c5="" d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-minus ancelDisplayNone collapsaddicon minus" nz-icon=""></i><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-plus CancelDisplayNone collapsaddicon plus" nz-icon=""></i><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse transition-05" id="" role="tabpanel"><div _ngcontent-c5="" class="panel-body spetial-font-family font-size-16px text-right text-justify word-break"><div _ngcontent-c5="" class="text-justify colorsoft-p font-light-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">אפשר להעלות את הלומדה לאן שרוצים - לשירותי אחסון, לשרת ארגוני, לאתר או אפליקציה פנים-ארגוניים, וכמובן - לתוך LMS.<br>בסופו של דבר, הלומדה מיוצאת כקובץ ZIP, ומפעילים אותה ע"י פתיחת קובץ ה-Launcher.HTML.</div></div><div class="fr-quick-insert" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div><div _ngcontent-c5="" class="width-100 margin-top-15"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="margin0 img-colaps img-template-1 LinkUrlChange extra" id="61d87a334766d0002aee089b_image_1" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d87a334766d0002aee089b"></i></div><div _ngcontent-c5="" class="center-and-block display-none uplaodIMGcolaps CancelDisplayNone" data-serial="61d87a334766d0002aee089b"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-729 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-730 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><button _ngcontent-c5="" class="colaps-delet CancelDisplayNone"><i _ngcontent-c5="" class="anticon anticon-delete"></i></button><div _ngcontent-c5="" class="panel panel-default penel-Accor "><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading  transition-05 collapsed" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" data-serial="61d87a334766d0002aee089b" data-num="2"><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right "><div _ngcontent-c5="" class="p-Poa font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">🔎 יכולת דיווח ומעקב</div></div></div></h4><i _ngcontent-c5="" class="anticon  CancelDisplayNone anticon-delete colaps-delet transition-05" data-serial="61d87a334766d0002aee089b"></i><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon minus" data-icon="minus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><path _ngcontent-c5="" d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path></svg><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon plus" data-icon="plus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><defs _ngcontent-c5=""><style _ngcontent-c5=""></style></defs><path _ngcontent-c5="" d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path _ngcontent-c5="" d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-minus ancelDisplayNone collapsaddicon minus" nz-icon=""></i><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-plus CancelDisplayNone collapsaddicon plus" nz-icon=""></i><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse collapse transition-05" id="" role="tabpanel"><div _ngcontent-c5="" class="panel-body spetial-font-family font-size-16px text-right text-justify word-break"><div _ngcontent-c5="" class="text-justify colorsoft-p font-light-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">הכלי תומך (כצפוי) בתקן SCORM בכל גרסה שנצטרך, מה שמאפשר, במקרה של חיבור ל-LMS, לקבל דיווח ולעקוב אחרי ביצועי הלמידה של העובדים.</div></div></div><div _ngcontent-c5="" class="width-100 margin-top-15"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="margin0 img-colaps img-template-1 LinkUrlChange extra" id="61d87a334766d0002aee089b_image_2" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d87a334766d0002aee089b"></i></div><div _ngcontent-c5="" class="center-and-block display-none uplaodIMGcolaps CancelDisplayNone" data-serial="61d87a334766d0002aee089b"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-731 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-732 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><button _ngcontent-c5="" class="colaps-delet CancelDisplayNone"><i _ngcontent-c5="" class="anticon anticon-delete"></i></button><div _ngcontent-c5="" class="panel panel-default penel-Accor "><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading  transition-05 collapsed" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" data-serial="61d87a334766d0002aee089b" data-num="3"><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right "><div _ngcontent-c5="" class="p-Poa font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">👨‍💼 זמינות השירות</div></div></div></h4><i _ngcontent-c5="" class="anticon  CancelDisplayNone anticon-delete colaps-delet transition-05" data-serial="61d87a334766d0002aee089b"></i><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon minus" data-icon="minus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><path _ngcontent-c5="" d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path></svg><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon plus" data-icon="plus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><defs _ngcontent-c5=""><style _ngcontent-c5=""></style></defs><path _ngcontent-c5="" d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path _ngcontent-c5="" d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-minus ancelDisplayNone collapsaddicon minus" nz-icon=""></i><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-plus CancelDisplayNone collapsaddicon plus" nz-icon=""></i><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse collapse transition-05" id="" role="tabpanel"><div _ngcontent-c5="" class="panel-body spetial-font-family font-size-16px text-right text-justify word-break"><div _ngcontent-c5="" class="text-justify colorsoft-p font-light-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">הצוות של אקספרטים מאוד זמין לפניות בכל נושא רלוונטי, בין אם מדובר בשאלה טכניות ועד שאלות כמו "האם הלומדה הזאת טובה לדעתכם המקצועית?"</div></div></div><div _ngcontent-c5="" class="width-100 margin-top-15"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="margin0 img-colaps img-template-1 LinkUrlChange extra" id="61d87a334766d0002aee089b_image_3" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d87a334766d0002aee089b"></i></div><div _ngcontent-c5="" class="center-and-block display-none uplaodIMGcolaps CancelDisplayNone" data-serial="61d87a334766d0002aee089b"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-733 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-734 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><button _ngcontent-c5="" class="colaps-delet CancelDisplayNone"><i _ngcontent-c5="" class="anticon anticon-delete"></i></button><div _ngcontent-c5="" class="panel panel-default penel-Accor "><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading  transition-05 collapsed" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" data-serial="61d87a334766d0002aee089b" data-num="4"><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right "><div _ngcontent-c5="" class="p-Poa font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">💡 יכולות שמתאימות לכל רמה</div></div></div></h4><i _ngcontent-c5="" class="anticon  CancelDisplayNone anticon-delete colaps-delet transition-05" data-serial="61d87a334766d0002aee089b"></i><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon minus" data-icon="minus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><path _ngcontent-c5="" d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path></svg><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon plus" data-icon="plus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><defs _ngcontent-c5=""><style _ngcontent-c5=""></style></defs><path _ngcontent-c5="" d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path _ngcontent-c5="" d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-minus ancelDisplayNone collapsaddicon minus" nz-icon=""></i><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-plus CancelDisplayNone collapsaddicon plus" nz-icon=""></i><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse collapse transition-05" id="" role="tabpanel"><div _ngcontent-c5="" class="panel-body spetial-font-family font-size-16px text-right text-justify word-break"><div _ngcontent-c5="" class="text-justify colorsoft-p font-light-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">הכלי נוחה לשימוש ומאוד אינטואיטיבי, גם למי שאין לו שום רקע בבניית לומדות ועיצוב, וגם למי שיש ידע ורוצה לשחק בעצמו עם ההגדרות באופן ידני.</div></div></div><div _ngcontent-c5="" class="width-100 margin-top-15"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="margin0 img-colaps img-template-1 LinkUrlChange extra" id="61d87a334766d0002aee089b_image_4" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d87a334766d0002aee089b"></i></div><div _ngcontent-c5="" class="center-and-block display-none uplaodIMGcolaps CancelDisplayNone" data-serial="61d87a334766d0002aee089b"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-735 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-736 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><button _ngcontent-c5="" class="colaps-delet CancelDisplayNone"><i _ngcontent-c5="" class="anticon anticon-delete"></i></button><div _ngcontent-c5="" class="panel panel-default penel-Accor "><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading  transition-05 collapsed" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" data-serial="61d87a334766d0002aee089b" data-num="5"><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right "><div _ngcontent-c5="" class="p-Poa font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">📱 רספונסיביות למכשירים שונים</div></div></div></h4><i _ngcontent-c5="" class="anticon  CancelDisplayNone anticon-delete colaps-delet transition-05" data-serial="61d87a334766d0002aee089b"></i><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon minus" data-icon="minus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><path _ngcontent-c5="" d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path></svg><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon plus" data-icon="plus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><defs _ngcontent-c5=""><style _ngcontent-c5=""></style></defs><path _ngcontent-c5="" d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path _ngcontent-c5="" d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-minus ancelDisplayNone collapsaddicon minus" nz-icon=""></i><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-plus CancelDisplayNone collapsaddicon plus" nz-icon=""></i><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse transition-05 collapse" id="" role="tabpanel"><div _ngcontent-c5="" class="panel-body spetial-font-family font-size-16px text-right text-justify word-break"><div _ngcontent-c5="" class="text-justify colorsoft-p font-light-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true">הלומדות בכלי מתאימות את עצמן אוטומטית כך שניתן להפעיל אותן מכל סוג מכשיר שנרצה - מחשב, טלפון נייד (לאורך ולרוחב), וטאבלט.</div></div></div><div _ngcontent-c5="" class="width-100 margin-top-15"><div _ngcontent-c5="" class="img-acc-cont display-none"><img _ngcontent-c5="" class="margin0 img-colaps img-template-1 LinkUrlChange extra" id="61d87a334766d0002aee089b_image_5" src=""><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d87a334766d0002aee089b"></i></div><div _ngcontent-c5="" class="center-and-block display-none uplaodIMGcolaps CancelDisplayNone" data-serial="61d87a334766d0002aee089b"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-737 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-738 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div></div><div _ngcontent-c5="" class="position-relative ng-star-inserted"><button _ngcontent-c5="" class="colaps-delet CancelDisplayNone"><i _ngcontent-c5="" class="anticon anticon-delete"></i></button><div _ngcontent-c5="" class="panel panel-default penel-Accor "><div _ngcontent-c5="" aria-controls="collapseOne2" aria-expanded="false" arie-status="prod" class="panel-heading  transition-05 collapsed" data-parent="#accordion2" data-toggle="collapse" id="" role="tab" tabindex="3" data-serial="61d87a334766d0002aee089b" data-num="6"><h4 _ngcontent-c5="" class="panel-title MarkWebProBook-font text-right "><div _ngcontent-c5="" class="p-Poa font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><div>📦 חיסכון בנפח</div></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div></div></h4><i _ngcontent-c5="" class="anticon  CancelDisplayNone anticon-delete colaps-delet transition-05" data-serial="61d87a334766d0002aee089b"></i><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon minus" data-icon="minus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><path _ngcontent-c5="" d="M872 474H152c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h720c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z"></path></svg><svg _ngcontent-c5="" aria-hidden="true" class="displayNone-editor collapsaddicon plus" data-icon="plus" fill="currentColor" height="1em" viewBox="64 64 896 896" width="1em"><defs _ngcontent-c5=""><style _ngcontent-c5=""></style></defs><path _ngcontent-c5="" d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"></path><path _ngcontent-c5="" d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"></path></svg><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-minus ancelDisplayNone collapsaddicon minus" nz-icon=""></i><i _ngcontent-c5="" _ngcontent-docs-c8="" class="anticon anticon-plus CancelDisplayNone collapsaddicon plus" nz-icon=""></i><div _ngcontent-c5="" aria-expanded="false" aria-labelledby="headingOne" class="panel-collapse transition-05 collapse" id="" role="tabpanel"><div _ngcontent-c5="" class="panel-body spetial-font-family font-size-16px text-right text-justify word-break"><div _ngcontent-c5="" class="text-justify colorsoft-p font-light-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><div style="text-align: right;">קובץ לומדה ריק - שמכיל את התמונות והסרטונים שנוצרים עם הלומדה כברירת מחדל - נע בין 2.5 ל-3 מגה בית.</div><div style="text-align: right;">בסופו של דבר, רוב הנפח של הלומדה (שיבוא לידי ביטוי בתפיסת נפח בשרת אליו היא תעלה) מנוצל על ידי תוכן המולטימדיה שנבחר לכלול בה.</div><div style="text-align: right;">כשמעלים מדיה לסלייס, אפשר להעלות מראש תכנים פחות "כבדים", או לחלופין - לבחור לדחוס אותם במעמד העלאת המדיה.</div><div data-empty="true" style="text-align: right;"><br></div></div></div></div><div _ngcontent-c5="" class="width-100 margin-top-15"><div _ngcontent-c5="" class="img-acc-cont"><img _ngcontent-c5="" class="margin0 img-colaps img-template-1 LinkUrlChange extra" id="61d87a334766d0002aee089b_image_6" src="uploads/1641581190076.PNG"><i _ngcontent-c5="" class="anticon CancelDisplayNone anticon-delete delete_img_acc transition-05" data-serial="61d87a334766d0002aee089b"></i></div><div _ngcontent-c5="" class="center-and-block display-none uplaodIMGcolaps CancelDisplayNone" data-serial="61d87a334766d0002aee089b"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-767 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-sync font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-768 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></div></div><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone addcolaps ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-plus-circle-o ng-star-inserted" style="display: inline-block;"></i><span style=""> הוספה </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-726 ng-star-inserted"><!----></nz-tooltip></div></div></div></section></div></div><div id="61d87eb64766d0002aee08a1" class="menuBarOnOver class_61d87eb64766d0002aee08a1 " > <div _ngcontent-c5="" id="61d87eb64766d0002aee08a1" class="class_61d87eb64766d0002aee08a1"><section _ngcontent-c5="" class="template-container template-container-pedding-flip  bg-light-color   wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="template-p font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="font-size: 40px;"><strong>"אה, זה כמו Rise, לא?"</strong></span></p></div></div></div></div></section></div></div><div id="61d87efb4766d0002aee08a2" class="menuBarOnOver class_61d87efb4766d0002aee08a2 " > <div _ngcontent-c5="" class="Img-background-300 textPImg z-index-minus-1-onExport LinkUrlChange webc-parralax" style="background-image: url(&quot;uploads/default2.jpg&quot;);" id="61d87efb4766d0002aee08a2_image1" aria-label="img"><div _ngcontent-c5="" class="text-wrap-Pimg"><div _ngcontent-c5="" class="H2-Poa word-break fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">לא רק - Slice היא הטוב מ<strong>כל</strong> העולמות!</p></div></div></div></div><div _ngcontent-c5="" class="bgSolid darkOpacity z-index-minus-1-onExport"></div></div><div _ngcontent-c5="" class=" display-none position-absolute-middle  Not-ok CancelDisplayNone uploadBtnFloat"><button _ngcontent-c5="" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" class="ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only"><!----><i _ngcontent-c5="" class="anticon anticon-picture ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"><!----></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-262 ng-star-inserted"><!----></nz-tooltip><br _ngcontent-c5=""><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-clicked ant-btn-icon-only bg-color-primary color-white" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed" img-change="61d87efb4766d0002aee08a2_image1"><!----><i _ngcontent-c5="" _ngcontent-c9="" class="anticon anticon-compass font15 ng-star-inserted" nz-icon="" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-263 ng-star-inserted"><!----></nz-tooltip><button _ngcontent-c5="" class="widthhight ant-btn ant-btn-dashed ant-btn-circle ant-btn-lg ant-btn-icon-only" nz-button="" nz-tooltip="" nzshape="circle" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="fas fa-deaf font15 ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-264 ng-star-inserted"><!----></nz-tooltip></div></div><div id="61d87f574766d0002aee08a4" class="menuBarOnOver class_61d87f574766d0002aee08a4 " > <div _ngcontent-c5="" id="61d87f574766d0002aee08a4" class="class_61d87f574766d0002aee08a4"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible; animation-name: fadeIn;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="tempalte-h4 bold fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">היתרון של Slice על פני המתחרים הוא שיש בה את כל מה שטוב בהם - במקום אחד</p></div></div></div><div _ngcontent-c5="" class="fr-box fr-rtl fr-inline" ><div class="fr-wrapper show-placeholder" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p><br></p></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div><div class="fr-quick-insert fr-visible" style="top: -1px; left: -37px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div></section></div></div><div id="61d87f9c4766d0002aee08a5" class="menuBarOnOver class_61d87f9c4766d0002aee08a5 " > <div _ngcontent-c5="" id="61d87f9c4766d0002aee08a5" class="class_61d87f9c4766d0002aee08a5"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="grid-row"><div _ngcontent-c5="" class="position-relative"><div _ngcontent-c5="" class="template-container"><ul _ngcontent-c5="" class="line"><!----><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d87f9c4766d0002aee08a50"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>הפריסה של לומדת הגלילה - דומה למה שיש ב-Rise</p></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div><div class="fr-quick-insert" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d87f9c4766d0002aee08a51"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>הוידאו האינטראקטיבי - דומה למה שיש ב-H5P</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet kav flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break kavHight" data-idd="61d87f9c4766d0002aee08a52"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>היכולת לערוך בקלות אובייקטים בלי להיכנס לממשק עריכה נפרד - דומה למה שיש ב-PowerPoint</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li></ul><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone addcolaps extraChet ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-plus-circle-o ng-star-inserted" style="display: inline-block;"></i><span style=""> הוספת רשימה </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-300 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></section></div></div><div id="61d8803e4766d0002aee08a6" class="menuBarOnOver class_61d8803e4766d0002aee08a6 " > <div _ngcontent-c5="" id="61d8803e4766d0002aee08a6" class="class_61d8803e4766d0002aee08a6"><section _ngcontent-c5="" class="template-container template-container-pedding-flip  bg-light-color   wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="template-p font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><strong>ואולי הכי חשוב...</strong></p></div></div></div></div></section></div></div><div id="61d880554766d0002aee08a7" class="menuBarOnOver class_61d880554766d0002aee08a7 " > <div _ngcontent-c5="" style="text-align: center;" id="61d880554766d0002aee08a7" class="class_61d880554766d0002aee08a7"><app-free-style _ngcontent-c5="" _nghost-c14=""><div _ngcontent-c14="" class="freestyle_css_settings display-none CancelDisplayNone display_none_export ignore_mousedown_freestyle freestyle_menu_show_h" id="freestyle_css_options_61d880554766d0002aee08a7"><i _ngcontent-c14="" class="fas fa-angle-double-left freestyle_collapse freestyle_collapse_close_horizontal"></i><div _ngcontent-c14="" class="flex-evenly freestyle_basic_settings"><div _ngcontent-c14="" class="freestyle_menu_option flex-center" style="height: 100%"><i _ngcontent-c14="" class="freestyle_option_logo fas fa-plus"></i><!----></div><div _ngcontent-c14="" class="freestyle_menu_option flex-center" style="height: 100%"><i _ngcontent-c14="" class="freestyle_option_logo anticon anticon-appstore-o"></i><!----></div><div _ngcontent-c14="" class="freestyle_menu_option flex-center" style="height: 100%"><i _ngcontent-c14="" class="freestyle_option_logo anticon anticon-laptop"></i><!----></div><div _ngcontent-c14="" class="freestyle_menu_option flex-center" style="height: 100%"><i _ngcontent-c14="" class="freestyle_option_logo fas fa-layer-group"></i><!----></div></div><!----></div><!----><!----><!----><div _ngcontent-c14="" class="freestyle_bg_cont" style="height: initial; width: initial; margin: initial; border: initial; overflow: auto; border-radius: initial; outline: initial; box-shadow: initial;"><div _ngcontent-c14="" class="LinkUrlChange free-background freestyle_bg_full" id="61d880554766d0002aee08a7_freestyle_bg" style="height: 702.018px; background-color: rgb(8, 8, 8);"><i _ngcontent-c14="" class="fas fa-angle-double-right freestyle_collapse freestyle_collapse_open_horizontal display-none CancelDisplayNone display_none_exportToFlex freestyle_menu_hide_h"></i><!----><div _ngcontent-c14="" class="freestyle_backdrop ignore_mousedown_freestyle freestyle_exit_enlarge display-none" id="freestyle_backdrop_61d880554766d0002aee08a7"><div _ngcontent-c14="" class="freestyle_enlarged display-none" id="freestyle_enlarge_img_61d880554766d0002aee08a7"></div><video _ngcontent-c14="" class="display-none freestyle_enlarged" controls="" id="freestyle_enlarge_vid_61d880554766d0002aee08a7"></video></div><!----><!----><!----><div _ngcontent-c14="" class="ng-star-inserted free-new animated pulse" id="freestyle_text_61d880554766d0002aee08a7_0" arr="texts" data-tos="i1" style="display: block; opacity: 1; z-index: 0; cursor: auto; animation-iteration-count: infinite; animation-duration: 1s; animation-name: pulse; animation-delay: 0s; animation-fill-mode: none; animation-timing-function: ease; animation-direction: normal; transform: rotate(0deg); outline: none; width: 98.7487%; height: 88.7464%; left: 0.83425%; top: 9.00295%; transition: none 0s ease 0s;"><!----><textarea _ngcontent-c14="" class="nonresize free-new-text take_parent ng-star-inserted" readonly="" style="height: 100%; width: 100%; position: absolute; top: 0px; left: 0px; background-color: rgba(0, 0, 0, 0); color: rgb(255, 255, 255); text-align: center; border-radius: 0px; border-width: 2px; border-color: rgba(0, 0, 0, 0); line-height: 154.44px; letter-spacing: -2.1411px; padding: 35.1px; font-weight: bold; text-decoration: initial; cursor: auto; font-style: initial; overflow: hidden; font-size: 191.8px;" font="100" id="freestyle_innerText_61d880554766d0002aee08a7_0">יש
+תאימות מלאה
+לעברית!!!</textarea><!----><div _ngcontent-c14="" class="freestyle_comp_offset freestyle_offset_horizontal display-none" id="freestyle_offset_horizontal_texts_61d880554766d0002aee08a7_0"></div><div _ngcontent-c14="" class="freestyle_comp_offset freestyle_offset_vertical display-none" id="freestyle_offset_vertical_texts_61d880554766d0002aee08a7_0"></div><!----><!----><!----><!----><!----><!----><!----><!----></div><!----><!----><!----><!----></div></div></app-free-style></div></div><div id="61d884654766d0002aee08aa" class="menuBarOnOver class_61d884654766d0002aee08aa " > <div _ngcontent-c5="" id="61d884654766d0002aee08aa" class="class_61d884654766d0002aee08aa"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="tempalte-h4 bold fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">וגם לערבית, רוסית - וכן - אפילו לאנגלית!</p></div></div></div></div></section></div></div><div id="61d87b504766d0002aee089d" class="menuBarOnOver class_61d87b504766d0002aee089d " > <div _ngcontent-c5="" id="61d87b504766d0002aee089d" class="class_61d87b504766d0002aee089d"><section _ngcontent-c5="" class="template-container template-container-pedding-flip  bg-light-color   wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="template-p font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="font-size: 40px;"><strong>למה Slice מתאים לנו?</strong></span></p></div></div></div></div></section></div></div><div id="61d87b104766d0002aee089c" class="menuBarOnOver class_61d87b104766d0002aee089c " > <div _ngcontent-c5="" id="61d87b104766d0002aee089c" class="class_61d87b104766d0002aee089c"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="grid-row"><div _ngcontent-c5="" aria-multiselectable="true" class="panel-group " id="accordion2" role="tablist"><div _ngcontent-c5="" class="width-100 margin-b-4 "></div><div _ngcontent-c5="" class="position-relative"><div _ngcontent-c5="" class="template-container"><section _ngcontent-c5="" class="task-list current"><ul _ngcontent-c5="" class=""><!----><li _ngcontent-c5="" class="font-md showdelet-check flex-between ng-star-inserted" style="position: relative;"><label _ngcontent-c5="" class="label--checkbox"><input _ngcontent-c5="" class="checkbox cheakBoxS" disabled="" type="checkbox" name="61d87b104766d0002aee089c0_check"><div _ngcontent-c5="" class="inline-block list-options list-check-box max-width-540 P-Poa transition-05" style="margin-top: 12px;" data-name="61d87b104766d0002aee089c0_check" data-idd="61d87b104766d0002aee089c0"><div _ngcontent-c5="" class="word-break-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>פיתוח תוכן במהירות</p></div></div></div></div></label><button _ngcontent-c5="" class="CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="font-md showdelet-check flex-between ng-star-inserted" style="position: relative;"><label _ngcontent-c5="" class="label--checkbox"><input _ngcontent-c5="" class="checkbox cheakBoxS" disabled="" type="checkbox" name="61d87b104766d0002aee089c1_check"><div _ngcontent-c5="" class="inline-block list-options list-check-box max-width-540 P-Poa transition-05" style="margin-top: 12px;" data-name="61d87b104766d0002aee089c1_check" data-idd="61d87b104766d0002aee089c1"><div _ngcontent-c5="" class="word-break-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>רספונסיביות למכשירים שונים</p></div></div></div></div></label><button _ngcontent-c5="" class="CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="font-md showdelet-check flex-between ng-star-inserted" style="position: relative;"><label _ngcontent-c5="" class="label--checkbox"><input _ngcontent-c5="" class="checkbox cheakBoxS" disabled="" type="checkbox" name="61d87b104766d0002aee089c2_check"><div _ngcontent-c5="" class="inline-block list-options list-check-box max-width-540 P-Poa transition-05" style="margin-top: 12px;" data-name="61d87b104766d0002aee089c2_check" data-idd="61d87b104766d0002aee089c2"><div _ngcontent-c5="" class="word-break-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>דיווח על ביצועים מרחוק</p></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div><div class="fr-quick-insert" style="left: -9999px; top: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div></label><button _ngcontent-c5="" class="CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="font-md showdelet-check flex-between ng-star-inserted" style="position: relative;"><label _ngcontent-c5="" class="label--checkbox"><input _ngcontent-c5="" class="checkbox cheakBoxS" disabled="" type="checkbox" name="61d87b104766d0002aee089c3_check"><div _ngcontent-c5="" class="inline-block list-options list-check-box max-width-540 P-Poa transition-05" style="margin-top: 12px;" data-name="61d87b104766d0002aee089c3_check" data-idd="61d87b104766d0002aee089c3"><div _ngcontent-c5="" class="word-break-p fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>תאימות לעברית ולשפות נוספות</p></div></div></div></div></label><button _ngcontent-c5="" class="CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li></ul></section><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone addcolaps extraChet ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-plus-circle-o ng-star-inserted" style="display: inline-block;"></i><span style=""> הוספת רשימה </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-561 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></div></section></div></div>
+   </div>
+
+          
+          
+          <button class="endChapter   bg-light-color hoverBgPrimary transition-half    GoToChapter    wow fadeIn"
+              data-wow-delay="0.3s" data-tos="i4">
+              <div class="ChapterChangeBg transition-half"></div>
+  
+
+            <div class="col-lg-9 col-centered text-center">
+                <p>לפרק הבא:</p>
+                <h3 class=" bold">הצגת הכלי</h3>
+                <i class="fas fa-angle-down animated infinite fadeInDown animation-duration-2"></i>
+            </div>
+        </button>
+        </div><!-- end of chapter   -->
+  <div id="i4" class="display-none  chaptersData"> 
+        <button class="prevChapter  GoToChapter bg-light-color-top hoverBgPrimary transition-half wow fadeIn"
+        data-wow-delay="2s" data-tos="i3">
+        <div class="ChapterPrevChangeBg transition-half"></div>
+
+        <div class="col-lg-9 col-centered text-center">
+
+            <i class="fas fa-angle-up animated infinite fadeInUp animation-duration-2"></i>
+            <p class="bold"> לפרק הקודם </p>
+
+        </div>
+      </button>
+        
+
+      
+      
+      <div class="chapter-header bg-light-color ">
+      <div class="col-lg-9 col-centered">
+      <p>פרק 6 / 4 </p>
+      <h2 class="chapter-title bold "> הצגת הכלי </h2>
+          <div class="chapter-divider bg-color-primary "></div>
+      </div>
+  </div>
+
+  <div class="">
+  
+   </div>
+
+          
+          
+          <button class="endChapter   bg-light-color hoverBgPrimary transition-half    GoToChapter    wow fadeIn"
+              data-wow-delay="0.3s" data-tos="i5">
+              <div class="ChapterChangeBg transition-half"></div>
+  
+
+            <div class="col-lg-9 col-centered text-center">
+                <p>לפרק הבא:</p>
+                <h3 class=" bold">התאמת הכלי לצורך שלנו</h3>
+                <i class="fas fa-angle-down animated infinite fadeInDown animation-duration-2"></i>
+            </div>
+        </button>
+        </div><!-- end of chapter   -->
+  <div id="i5" class="display-none  chaptersData"> 
+        <button class="prevChapter  GoToChapter bg-light-color-top hoverBgPrimary transition-half wow fadeIn"
+        data-wow-delay="2s" data-tos="i4">
+        <div class="ChapterPrevChangeBg transition-half"></div>
+
+        <div class="col-lg-9 col-centered text-center">
+
+            <i class="fas fa-angle-up animated infinite fadeInUp animation-duration-2"></i>
+            <p class="bold"> לפרק הקודם </p>
+
+        </div>
+      </button>
+        
+
+      
+      
+      <div class="chapter-header bg-light-color ">
+      <div class="col-lg-9 col-centered">
+      <p>פרק 6 / 5 </p>
+      <h2 class="chapter-title bold "> התאמת הכלי לצורך שלנו </h2>
+          <div class="chapter-divider bg-color-primary "></div>
+      </div>
+  </div>
+
+  <div class="">
+  
+   </div>
+
+          
+          
+          <button class="endChapter   bg-light-color hoverBgPrimary transition-half    GoToChapter    wow fadeIn"
+              data-wow-delay="0.3s" data-tos="i6">
+              <div class="ChapterChangeBg transition-half"></div>
+  
+
+            <div class="col-lg-9 col-centered text-center">
+                <p>לפרק הבא:</p>
+                <h3 class=" bold">חסרונות</h3>
+                <i class="fas fa-angle-down animated infinite fadeInDown animation-duration-2"></i>
+            </div>
+        </button>
+        </div><!-- end of chapter   -->
+  <div id="i6" class="display-none  chaptersData"> 
+        <button class="prevChapter  GoToChapter bg-light-color-top hoverBgPrimary transition-half wow fadeIn"
+        data-wow-delay="2s" data-tos="i5">
+        <div class="ChapterPrevChangeBg transition-half"></div>
+
+        <div class="col-lg-9 col-centered text-center">
+
+            <i class="fas fa-angle-up animated infinite fadeInUp animation-duration-2"></i>
+            <p class="bold"> לפרק הקודם </p>
+
+        </div>
+      </button>
+        
+
+      
+      
+      <div class="chapter-header bg-light-color ">
+      <div class="col-lg-9 col-centered">
+      <p>פרק 6 / 6 </p>
+      <h2 class="chapter-title bold "> חסרונות </h2>
+          <div class="chapter-divider bg-color-primary "></div>
+      </div>
+  </div>
+
+  <div class="">
+  <div id="61d87c374766d0002aee089e" class="menuBarOnOver class_61d87c374766d0002aee089e " > <div _ngcontent-c5="" id="61d87c374766d0002aee089e" class="class_61d87c374766d0002aee089e"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="tempalte-h4 bold fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;">אין ספק - הכלי חדש, וזה מורגש...</p></div></div></div></div></section></div></div><div id="61d87c5f4766d0002aee089f" class="menuBarOnOver class_61d87c5f4766d0002aee089f " > <div _ngcontent-c5="" id="61d87c5f4766d0002aee089f" class="class_61d87c5f4766d0002aee089f"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible; animation-name: fadeIn;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="grid-row"><div _ngcontent-c5="" class="position-relative"><div _ngcontent-c5="" class="template-container"><ul _ngcontent-c5="" class="bulets"><!----><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet flex-between flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break " data-idd="61d87c5f4766d0002aee089f0"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>לפעמים צריך לרענן את הדף בגלל באגים</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet flex-between flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break " data-idd="61d87c5f4766d0002aee089f1"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>בעריכת לומדת וידאו לא ניתן לשנות את סדר הפרקים</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet flex-between flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break " data-idd="61d87c5f4766d0002aee089f2"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>אין אפשרות להטמעת סרטונים ממקור חיצוני בלומדת הוידאו</p></div></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li><li _ngcontent-c5="" class="box-sizing-border-box font-md list-margin position-relative showlistdelet flex-between flex-align ng-star-inserted" style="position: relative;"><div _ngcontent-c5="" class="inline-flex list-check-box padding-20-left max-width-540 word-break " data-idd="61d87c5f4766d0002aee089f3"><div _ngcontent-c5="" class="P-Poa word-break font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>בקיצור - דברים עדיין קצת חורקים...</p></div><span class="fr-placeholder" style="font-size: 20px; line-height: 30px; margin-top: 0px; padding-top: 0px; padding-left: 0px; margin-left: 0px; padding-right: 0px; margin-right: 0px; text-align: right;"></span></div><div class="fr-quick-insert" style="top: -9999px; left: -9999px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div><button _ngcontent-c5="" class="deletlistnumber garright right-100 colaps-delet deletCircleClass CancelDisplayNone transition-05 delete-fix-btn ant-btn ant-btn-default ant-btn-circle ant-btn-icon-only" nz-button="" nzshape="circle" nztype="default"><!----><i _ngcontent-c5="" class="anticon ont-size25px anticon-delete ng-star-inserted" style="display: inline-block;"></i><span style="display: none;"></span></button></li></ul><button _ngcontent-c5="" class="display-none margincentercollaps CancelDisplayNone addcolaps extraChet ant-btn ant-btn-dashed ant-btn-lg" nz-button="" nz-tooltip="" nzplacement="bottom" nzsize="large" nztype="dashed"><!----><i _ngcontent-c5="" class="anticon anticon-plus-circle-o ng-star-inserted" style="display: inline-block;"></i><span style=""> הוספת רשימה </span></button><nz-tooltip _nghost-c31="" class="ng-tns-c31-484 ng-star-inserted"><!----></nz-tooltip></div></div></div></div></section></div></div><div id="61d88c1d4766d0002aee08c8" class="menuBarOnOver class_61d88c1d4766d0002aee08c8 " > <div _ngcontent-c5="" id="61d88c1d4766d0002aee08c8" class="class_61d88c1d4766d0002aee08c8"><section _ngcontent-c5="" class="template-container template-container-pedding-flip  bg-light-color   wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="template-p font-size-p-18 fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p style="text-align: center;"><span style="font-size: 40px;"><strong>וכמובן, כל הטוב הזה לא יכול לבוא בלי...</strong></span><span style="font-size: 40px;"><strong>&nbsp;</strong>💸💸💸</span></p></div></div></div></div></section></div></div><div id="61d88c654766d0002aee08c9" class="menuBarOnOver class_61d88c654766d0002aee08c9 " > <div _ngcontent-c5="" id="61d88c654766d0002aee08c9" class="class_61d88c654766d0002aee08c9"><section _ngcontent-c5="" class="template-container     wow fadeIn" style="visibility: visible;"><div _ngcontent-c5="" class="col-lg-9 col-centered"><div _ngcontent-c5="" class="fr-box fr-rtl fr-inline" ><div class="fr-wrapper" dir="rtl"><div class="fr-element fr-view" dir="rtl" contenteditable="true" aria-disabled="false" spellcheck="true"><p>7.&nbsp; &nbsp;&nbsp;עלויות</p><p>א.&nbsp; &nbsp;&nbsp;רישוי</p><p>ב.&nbsp; &nbsp;&nbsp;תחזוקה</p><p>ג.&nbsp; &nbsp;&nbsp;התקנה</p><p>ד.&nbsp; &nbsp;&nbsp;הדרכה ראשונית (אם נדרש)</p><p>ה.&nbsp; &nbsp;&nbsp;עלויות פנים ארגוניות</p><p>ו.&nbsp; &nbsp;&nbsp;השלכות של תקלה בתוצר או בכלי עצמו</p><p>ז. &nbsp; &nbsp;האם העלות המשוערת של הכלי נמצאת בגבולות תקציב הרכש המיועד לפרויקט?</p><p>ח. &nbsp; &nbsp;האם העלות מחייבת יציאה למכרז (בהתאם לנהלי הארגון או חוקי מדינה)?</p><p>ד. &nbsp; &nbsp;האם עלויות התמיכה נכללות במחיר מקורי? <br></p><p>11. &nbsp; &nbsp;גרסת ניסוי</p><p>א.&nbsp; &nbsp;&nbsp;האם קיימת גרסת ניסוי זמינה לשימוש (אתר, ספק, עמיתים)</p><p>ב.&nbsp; &nbsp;&nbsp;מה ההבדל בין גרסת הניסוי לכלי המלא?</p><p><br></p></div><div contenteditable="true" style="position: fixed; top: 0; left: -9999px; height: 100%; width: 0; word-break: break-all; overflow:hidden; z-index: 2147483647; line-height: 140%; -moz-user-select: text; -webkit-user-select: text; -ms-user-select: text; user-select: text;" tabindex="-1">ד.<span style="white-space:pre">	</span>האם עלויות התמיכה נכללות במחיר מקורי?&nbsp;</div></div><div class="fr-quick-insert fr-visible" style="top: 404px; left: -37px;"><a class="fr-floating-btn" role="button" tabindex="-1" title="Quick Insert"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M22,16.75 L16.75,16.75 L16.75,22 L15.25,22.000 L15.25,16.75 L10,16.75 L10,15.25 L15.25,15.25 L15.25,10 L16.75,10 L16.75,15.25 L22,15.25 L22,16.75 Z"></path></svg></a></div></div></div></section></div></div>
+   </div>
+
+          <button class="endChapter   bg-light-color hoverBgPrimary transition-half    GoToChapter    wow fadeIn"
+              data-wow-delay="0.3s" data-tos="end">
+
+            <div class="ChapterChangeBg transition-half"></div>
+
+
+            <div class="locked-guard   col-lg-9 col-centered text-center">
+                    <i class="fas fa-lock "></i>
+
+                    <h3 class=" bold">עוד לא סיימנו</h3>
+
+                <p>על מנת לסיים את הלומדה חייב לעבור על כל החומר</p>
+            </div>
+
+
+
+            <div class="locked-Unlock   col-lg-9 col-centered text-center">
+                <p>זהו הגענו לסוף</p>
+                <h3 class=" bold">סיום הלמידה</h3>
+                <i class="fas fa-angle-down animated infinite fadeInDown animation-duration-2"></i>
+            </div>
+
+
+        </button>
+        </div><!-- end of chapter   -->
+
+        
+
+    <!--  ----------------            end of course           ---------------     -->
+
+    <div id="end" class="display-none chaptersData ">
+      <div class="confetti " >
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+          <div class="confetti-piece"></div>
+      </div>
+  <div  class="wow slideInDown fullHeader  " style="background-image: url(uploads/1641560450905.jpg);">
+
+
+  <div class="darkOpacity"></div>
+  <img class="logoClient" src="uploads/1641560257462.png" alt="logo">
+  <img class="logoSliceWhite" src="./img/slicewhite.png" alt="logo" style="    z-index: 999999999;
+  position: absolute;
+  width: 90px;
+  left: 30px;
+  bottom: 25px;">
+
+          <div class="row frontHeader">
+              <div class="col-lg-12 col-centered">
+             
+
+                  <h1 class="bigFont    wow fadeInDown" data-wow-delay="0.4s" style="    color: white;
+                  text-align: center;
+                  padding: 50px 0px 0px;">
+          
+
+                  
+                  סיימת בהצלחה את
+                  <br/>
+                  <strong>חקר כלי ג&#39; - פרזנטציה</strong></h1>
+                    <button class=" cta border-radius-BB bg-color-primary   glossyHover   GoToChapter" onclick="exitScreen()" style="    margin: 0px auto;
+                  padding: 10px 30px;">
+                            <span> סגור    </span>
+                            </button>
+                    
+
+        
+          </div>
+     
+
+        
+
+
+    </div>
+
+    <!--  ----------------            end of course           ---------------     -->
+
+    
+  <script src="js/app.min.js"></script>
+<script>
+$(document).ready(function(){
+
+
+
+  /// EXPORT INTERACTIVE VIDEO
+
+
+  var elements_arr = [{"options":[{"img":"uploads/1641560450905.jpg","txt":"<p style=\"text-align: center;\">אנחנו <strong>עולם האסטרונומיה</strong></p>","parallax":true}],"_id":"61d8636f4766d0002aee0879","chapterID":"61d8618f4766d0002aee0871","type":"פסקה עם תמונה","order":0,"content":"","__v":0},{"options":[{"img":"uploads/default.jpg","txt":"<p><br></p><p>רקע...</p><p><br></p><p>מספר עובדים:&nbsp;</p><p>מספר לקוחות:&nbsp;</p><p>פריסה ארצית:&nbsp;</p>"}],"_id":"61d863a14766d0002aee087b","chapterID":"61d8618f4766d0002aee0871","type":"טקסט עם תמונה","order":1,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\"><span style=\"font-size: 30px;\"><strong>הצורך העסקי</strong></span></p>"}],"_id":"61d863bf4766d0002aee087c","chapterID":"61d8618f4766d0002aee0871","type":"טקסט מעוצב מודגש","order":2,"content":"","__v":0},{"options":[{"content":"<p>התרחבות העסק ועלייה בביקוש</p>"},{"content":"<p>קליטת מדריכים חדשים</p>"},{"content":"<p>צורך בפתרון מהיר להכשרה</p>"},{"content":"<p>מעקב והערכת הלמידה</p>"}],"_id":"61d863ed4766d0002aee087d","chapterID":"61d8618f4766d0002aee0871","type":"רשימה","order":3,"content":"","__v":0},{"options":[{"img":"uploads/1641560450905.jpg","txt":"<p style=\"text-align: center;\"><strong>אז מה עושים?</strong></p>","parallax":true}],"_id":"61d864444766d0002aee087f","chapterID":"61d8618f4766d0002aee0871","type":"פסקה עם תמונה","order":4,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\">אין ספק - הכלי חדש, וזה מורגש...</p>"}],"_id":"61d87c374766d0002aee089e","chapterID":"61d862674766d0002aee0877","type":"כותרת משנית","order":0,"content":"","__v":0},{"options":[{"content":"<p>לפעמים צריך לרענן את הדף בגלל באגים</p>"},{"content":"<p>בעריכת לומדת וידאו לא ניתן לשנות את סדר הפרקים</p>"},{"content":"<p>אין אפשרות להטמעת סרטונים ממקור חיצוני בלומדת הוידאו</p>"},{"content":"<p>בקיצור - דברים עדיין קצת חורקים...</p>"}],"_id":"61d87c5f4766d0002aee089f","chapterID":"61d862674766d0002aee0877","type":"בולטים","order":1,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\"><span style=\"font-size: 40px;\"><strong>וכמובן, כל הטוב הזה לא יכול לבוא בלי...</strong></span><span style=\"font-size: 40px;\"><strong>&nbsp;</strong>💸💸💸</span></p>"}],"_id":"61d88c1d4766d0002aee08c8","chapterID":"61d862674766d0002aee0877","type":"טקסט מעוצב מודגש","order":2,"content":"","__v":0},{"options":[{"txt":"<p>7.&nbsp; &nbsp;&nbsp;עלויות</p><p>א.&nbsp; &nbsp;&nbsp;רישוי</p><p>ב.&nbsp; &nbsp;&nbsp;תחזוקה</p><p>ג.&nbsp; &nbsp;&nbsp;התקנה</p><p>ד.&nbsp; &nbsp;&nbsp;הדרכה ראשונית (אם נדרש)</p><p>ה.&nbsp; &nbsp;&nbsp;עלויות פנים ארגוניות</p><p>ו.&nbsp; &nbsp;&nbsp;השלכות של תקלה בתוצר או בכלי עצמו</p><p>ז. &nbsp; &nbsp;האם העלות המשוערת של הכלי נמצאת בגבולות תקציב הרכש המיועד לפרויקט?</p><p>ח. &nbsp; &nbsp;האם העלות מחייבת יציאה למכרז (בהתאם לנהלי הארגון או חוקי מדינה)?</p><p>ד. &nbsp; &nbsp;האם עלויות התמיכה נכללות במחיר מקורי? </p><p>11. &nbsp; &nbsp;גרסת ניסוי</p><p>א.&nbsp; &nbsp;&nbsp;האם קיימת גרסת ניסוי זמינה לשימוש (אתר, ספק, עמיתים)</p><p>ב.&nbsp; &nbsp;&nbsp;מה ההבדל בין גרסת הניסוי לכלי המלא?</p><p><br></p>"}],"_id":"61d88c654766d0002aee08c9","chapterID":"61d862674766d0002aee0877","type":"פסקה","order":3,"content":"","__v":0},{"options":[{"screen_type":"laptop","def_img":"uploads/default2.jpg","imgs":[{"type":"img","name":"Freestyle","web_link":"www.google.com","link_target":"_blank","chapter_link":"i1","link_type":"none","lock":false,"editable":false,"src":"uploads/1641571684184.PNG","animation":{"current_anim":"start","click":{"name":"none","duration":1,"delay":0,"iteration":1,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"},"hover":{"name":"tada","duration":1.5,"delay":0,"iteration":1,"infinite":true,"fill_mode":"none","function":"ease","direction":"normal"},"start":{"name":"none","done":false,"duration":1.5,"delay":0,"iteration":2,"infinite":true,"fill_mode":"none","function":"ease","direction":"normal"},"none":{"name":"none","duration":0,"delay":0,"iteration":0,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"}},"bg_positionX":"center","bg_positionY":"center","zIndex":1,"borderPx":0,"borderColor":"#000000","borderRadius":39,"borderPxSplit":false,"borderRadiusSplit":false,"borderTopPx":0,"borderRightPx":0,"borderBottomPx":0,"borderLeftPx":0,"borderTopRadius":0,"borderRightRadius":0,"borderBottomRadius":0,"borderLeftRadius":0,"opacity":100,"rotate":0,"hover":{"active":false,"transition":false,"transitionTime":0.5,"opacity":{"active":true,"value":100,"name":"opacity"},"zIndex":{"active":false,"value":0,"name":"zIndex"},"scale":{"active":true,"value":1,"name":"scale"},"blur":{"active":true,"value":0,"name":"blur"},"brightness":{"active":true,"value":1,"name":"brightness"},"src":{"active":false,"value":"","name":"src"}},"enlarge":false,"laptop":{"active":true,"width":44.26485922836288,"height":40.598290598290596,"left":27.8936,"top":30.7692},"phone":{"active":false,"width":20,"height":20,"left":10,"top":10}}],"texts":[{"type":"text","name":"Text 1njuk","text":"מחולל הלומדות","lock":false,"editable":false,"web_link":"www.google.com","link_target":"_blank","chapter_link":"i1","link_type":"none","animation":{"current_anim":"start","click":{"name":"none","duration":1,"delay":0,"iteration":1,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"},"hover":{"name":"none","duration":1,"delay":0,"iteration":1,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"},"start":{"name":"none","done":true,"duration":1,"delay":0,"iteration":1,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"},"none":{"name":"none","duration":0,"delay":0,"iteration":0,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"}},"scrollbar":false,"font_size":28,"font_color":"#ffffff","text_align":"center","line_height":31,"letter_spacing":0,"bold":true,"underline":false,"italic":false,"padding":53,"zIndex":2,"bg":"rgba(255,255,255,0)","borderPx":2,"borderRadius":0,"borderPxSplit":false,"borderRadiusSplit":false,"borderTopPx":2,"borderRightPx":2,"borderBottomPx":2,"borderLeftPx":2,"borderTopRadius":0,"borderRightRadius":0,"borderBottomRadius":0,"borderLeftRadius":0,"borderColor":"rgba(0,0,0,0)","opacity":100,"rotate":0,"hover":{"active":false,"transition":false,"transitionTime":0,"opacity":{"active":true,"value":100,"name":"opacity"},"zIndex":{"active":false,"value":0,"name":"zIndex"},"scale":{"active":true,"value":1,"name":"scale"},"blur":{"active":true,"value":0,"name":"blur"},"brightness":{"active":true,"value":1,"name":"brightness"},"text":{"active":false,"value":"","name":"text"}},"laptop":{"active":true,"width":19.96871741397289,"height":10.826210826210826,"left":41.3347,"top":10.4274},"phone":{"active":false,"width":20,"height":20,"left":10,"top":10}}],"vids":[],"htmls":[],"btns":[],"parallax":false,"img":"uploads/freestyledefault.png","video":"","color":"#70499d","bg_type":"color","video_bg_loop":true,"video_bg_mute":true,"laptop":{"screen_height":0.75,"screen_ratio":0.48802083333333335,"lock_ratio":true},"phone":{"screen_height":0.75,"screen_ratio":1.7777777777777777,"lock_ratio":true}}],"_id":"61d864914766d0002aee0881","chapterID":"61d861f84766d0002aee0873","type":"סגנון חופשי","order":0,"content":"","__v":0},{"options":[{"txt":"<p>סלייס הוא מחולל תוכן חדשני ~~~~~~~~~~~~~~~~~</p>"}],"_id":"61d883024766d0002aee08a8","chapterID":"61d861f84766d0002aee0873","type":"טקסט מעוצב מודגש","order":1,"content":"","__v":0},{"options":[{"vid":"https://www.youtube.com/embed/5cOCxCQFZ0w"}],"_id":"61d867584766d0002aee0884","chapterID":"61d861f84766d0002aee0873","type":"וידאו מהרשת","order":2,"content":"","__v":0},{"options":[{"img2":"","img1":"uploads//photo-1601233749202-95d04d5b3c00?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwyMzk5MTl8MHwxfHNlYXJjaHwxMHx8c3VycHJpc2VkfGVufDB8fHx8MTY0MTU3NTkyNA&ixlib=rb-1.2.1&q=80&w=400"},[{"content":"<p style=\"text-align: center;\"><span style=\"color: rgb(40, 50, 78);\">מה?! מה זה הכלי המשוגע הזה ואיך עדיין לא שמעתי עליו???</span></p>","type":"1"},{"content":"<p style=\"text-align: center;\">אוקיי, קודם כל - תירגע...</p>","type":"2"},{"content":"<p style=\"text-align: center;\">הכלי הזה הוא כלי חדש יחסית, שפותח ומפותח על ידי חברה ישראלית!</p>","type":2},{"content":"<p style=\"text-align: center;\"><span style=\"color: rgb(40, 50, 78);\">טוב, זה כבר טוב מכדי להיות אמיתי...</span></p>","type":"1"},{"content":"<p style=\"text-align: center;\">כן, אנחנו יודעים!</p>","type":2}]],"_id":"61d8687b4766d0002aee0888","chapterID":"61d861f84766d0002aee0873","type":"שיחה","order":3,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\"><span style=\"color: rgb(111, 76, 154);\"><span style=\"font-size: 40px;\"><strong>ExperTeam</strong></span></span></p>","title":"<p style=\"text-align: center;\">חברה ישראלית לפתרונות למידה טכנולוגיים ומענה מהיר לצרכים עסקיים</p>","img":"uploads/1641573109254.png"}],"_id":"61d8699d4766d0002aee088b","chapterID":"61d861f84766d0002aee0873","type":"ציטוט עם תמונה","order":4,"content":"","__v":0},{"options":[{"img":"uploads/default.jpg","txt":"<p>פה יהיו כמה מילים על החברה?</p>"}],"_id":"61d86e784766d0002aee0893","chapterID":"61d861f84766d0002aee0873","type":"טקסט עם תמונה","order":5,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\"><span style=\"font-size: 30px;\">Slice במספרים</span></p>"}],"_id":"61d86b4c4766d0002aee088f","chapterID":"61d861f84766d0002aee0873","type":"טקסט מעוצב מודגש","order":6,"content":"","__v":0},{"options":[{"content":"<p>??? ארגונים שמשתמשים בכלי</p>"},{"content":"<p>??? לומדים בסך הכל</p>"},{"content":"<p>??? מדינות</p>"}],"_id":"61d86b354766d0002aee088e","chapterID":"61d861f84766d0002aee0873","type":"רשימה","order":7,"content":"","__v":0},{"options":[{"txt":"<p>~~~~~~ הערה: פה יהיה ציר זמן~~~~</p><p>זה חלק שיענה על השאלות:</p><p>מתי סלייס נוצר?</p><p>האם היו נקודות ציון חשובות לאורך הדרך? מתי נוספו פונקציות חשובות שקיימות כיום?</p><p>כמה עדכונים היו לכלי ומתי הם היו? מתי היה העדכון האחרון?</p>"}],"_id":"61d86bf34766d0002aee0890","chapterID":"61d861f84766d0002aee0873","type":"טקסט מעוצב","order":8,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\">4 סוגים של לומדות:</p>"}],"_id":"61d876d74766d0002aee0897","chapterID":"61d862424766d0002aee0874","type":"כותרת משנית","order":0,"content":"","__v":0},{"options":[{"title":"<p>לומדת גלילה</p>","img":"","size":"small","content":"<p>לומדה שמתקדמים בה באמצעות גלילה, וניווט בין הפרקים השונים בתפריט.</p><p>כל דף יכול לכלול מגוון רחב של אלמנטים, החל מפסקאות טקסט, דרך תמונות עם אינטראקציה, ועוד המון אפשרויות.</p><p>כמו שאולי כבר ניחשתם - הלומדה הזאת - היא לומדת גלילה!</p><p><br></p><p>(קובץ ריק נע בין 2.5 ל-3 מגה בית, תלוי בהגדרות)</p>"},{"title":"<p>לומדת דף אחד</p>","img":"","size":"","content":"<p>דומה ללומדת הגלילה, רק שיש בה רק פרק אחד.</p><p>כל שאר האפשרויות שקיימות בלומדת הגלילה - קיימות גם כאן.</p><p>מתאים ללומדות קצרות ונקודתיות יחסית.</p><p><br></p><p>(גודל קובץ ריק - זהה ללומדת הגלילה)</p>"},{"title":"<p>לומדת סליידר</p>","img":"","size":"","content":"<p>סוג מוגבל יותר של לומדה, שבה ההתקדמות היא לא במורד הדף אלא לרוחב.</p><p>הסוג הזה מכיל בעיקר תוכן טקסטואלי, אקורדיון, ושאלות חד-ברירה.</p><p><br></p><p>(קובץ ריק שוקל כ-2.5 מגה בית)</p><p><br></p>"},{"title":"<p>לומדת וידאו</p>","content":"<p>לומדה שלמה שמבוססת על סרטונים אינטראקטיביים, בפריסה בהשראת נטפליקס.</p><p>ניתן לשלב סרטונים אינטראקטיביים גם בלומדות הגלילה, אבל לומדת הוידאו מוקדשת רק להם.</p><p>מתאים במקרים שרוצים להציג את כל תוכן הלומדה כסרטונים, עם אינטראקציות שמחזקות את חוויית הלמידה והזכירה של החומר.</p><p><br></p><p>(קובץ ריק שוקל)</p>","img":""}],"_id":"61d876a14766d0002aee0895","chapterID":"61d862424766d0002aee0874","type":"טאבים","order":1,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\"><span style=\"font-size: 40px;\"><strong>ומה הכלי מציע לארגונים?</strong></span></p>"}],"_id":"61d8791e4766d0002aee0899","chapterID":"61d862424766d0002aee0874","type":"טקסט מעוצב מודגש","order":2,"content":"","__v":0},{"options":[{"title":"🎨 מיתוג והתאמה אישית של הלומדה","img":"","size":"","content":"את הלומדות ניתן לעצב לפי המיתוג של העסק - מבחינת פונטים, צבעים, לוגו, ועוד."},{"title":"💻 דרכי שימוש שונות","img":"","size":"","content":"אפשר להעלות את הלומדה לאן שרוצים - לשירותי אחסון, לשרת ארגוני, לאתר או אפליקציה פנים-ארגוניים, וכמובן - לתוך LMS.<br>בסופו של דבר, הלומדה מיוצאת כקובץ ZIP, ומפעילים אותה ע&quot;י פתיחת קובץ ה-Launcher.HTML."},{"title":"🔎 יכולת דיווח ומעקב","img":"","size":"","content":"הכלי תומך (כצפוי) בתקן SCORM בכל גרסה שנצטרך, מה שמאפשר, במקרה של חיבור ל-LMS, לקבל דיווח ולעקוב אחרי ביצועי הלמידה של העובדים."},{"title":"👨&zwj;💼 זמינות השירות","content":"הצוות של אקספרטים מאוד זמין לפניות בכל נושא רלוונטי, בין אם מדובר בשאלה טכניות ועד שאלות כמו &quot;האם הלומדה הזאת טובה לדעתכם המקצועית?&quot;","img":""},{"title":"💡 יכולות שמתאימות לכל רמה","content":"הכלי נוחה לשימוש ומאוד אינטואיטיבי, גם למי שאין לו שום רקע בבניית לומדות ועיצוב, וגם למי שיש ידע ורוצה לשחק בעצמו עם ההגדרות באופן ידני.","img":""},{"title":"📱 רספונסיביות למכשירים שונים","content":"הלומדות בכלי מתאימות את עצמן אוטומטית כך שניתן להפעיל אותן מכל סוג מכשיר שנרצה - מחשב, טלפון נייד (לאורך ולרוחב), וטאבלט.","img":""},{"title":"<div>📦 חיסכון בנפח</div>","content":"<div style=\"text-align: right;\">קובץ לומדה ריק - שמכיל את התמונות והסרטונים שנוצרים עם הלומדה כברירת מחדל - נע בין 2.5 ל-3 מגה בית.</div><div style=\"text-align: right;\">בסופו של דבר, רוב הנפח של הלומדה (שיבוא לידי ביטוי בתפיסת נפח בשרת אליו היא תעלה) מנוצל על ידי תוכן המולטימדיה שנבחר לכלול בה.</div><div style=\"text-align: right;\">כשמעלים מדיה לסלייס, אפשר להעלות מראש תכנים פחות &quot;כבדים&quot;, או לחלופין - לבחור לדחוס אותם במעמד העלאת המדיה.</div><div data-empty=\"true\" style=\"text-align: right;\"><br></div>","img":"uploads/1641581190076.PNG"}],"_id":"61d87a334766d0002aee089b","chapterID":"61d862424766d0002aee0874","type":"אקורדיון","order":3,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\"><span style=\"font-size: 40px;\"><strong>&quot;אה, זה כמו Rise, לא?&quot;</strong></span></p>"}],"_id":"61d87eb64766d0002aee08a1","chapterID":"61d862424766d0002aee0874","type":"טקסט מעוצב מודגש","order":4,"content":"","__v":0},{"options":[{"img":"uploads/default2.jpg","txt":"<p style=\"text-align: center;\">לא רק - Slice היא הטוב מ<strong>כל</strong> העולמות!</p>","parallax":true}],"_id":"61d87efb4766d0002aee08a2","chapterID":"61d862424766d0002aee0874","type":"פסקה עם תמונה","order":5,"content":"","__v":0},{"options":[{"title":"<p style=\"text-align: center;\">היתרון של Slice על פני המתחרים הוא שיש בה את כל מה שטוב בהם - במקום אחד</p>","txt":""}],"_id":"61d87f574766d0002aee08a4","chapterID":"61d862424766d0002aee0874","type":"כותרת משנה ופסקה","order":6,"content":"","__v":0},{"options":[{"content":"<p>הפריסה של לומדת הגלילה - דומה למה שיש ב-Rise</p>"},{"content":"<p>הוידאו האינטראקטיבי - דומה למה שיש ב-H5P</p>"},{"content":"<p>היכולת לערוך בקלות אובייקטים בלי להיכנס לממשק עריכה נפרד - דומה למה שיש ב-PowerPoint</p>"}],"_id":"61d87f9c4766d0002aee08a5","chapterID":"61d862424766d0002aee0874","type":"רשימה","order":7,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\"><strong>ואולי הכי חשוב...</strong></p>"}],"_id":"61d8803e4766d0002aee08a6","chapterID":"61d862424766d0002aee0874","type":"טקסט מעוצב מודגש","order":8,"content":"","__v":0},{"options":[{"screen_type":"laptop","def_img":"uploads/default2.jpg","imgs":[],"texts":[{"type":"text","name":"Text 1","text":"יש\nתאימות מלאה\nלעברית!!!","lock":false,"editable":false,"web_link":"www.google.com","link_target":"_blank","chapter_link":"i1","link_type":"none","animation":{"current_anim":"start","click":{"name":"none","duration":1,"delay":0,"iteration":1,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"},"hover":{"name":"none","duration":1,"delay":0,"iteration":1,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"},"start":{"name":"pulse","done":false,"duration":1,"delay":0,"iteration":1,"infinite":true,"fill_mode":"none","function":"ease","direction":"normal"},"none":{"name":"none","duration":0,"delay":0,"iteration":0,"infinite":false,"fill_mode":"none","function":"ease","direction":"normal"}},"scrollbar":false,"font_size":100,"font_color":"#ffffff","text_align":"center","line_height":220,"letter_spacing":-6.1,"bold":true,"underline":false,"italic":false,"padding":100,"zIndex":0,"bg":"rgba(0,0,0,0)","borderPx":2,"borderRadius":0,"borderPxSplit":false,"borderRadiusSplit":false,"borderTopPx":2,"borderRightPx":2,"borderBottomPx":2,"borderLeftPx":2,"borderTopRadius":0,"borderRightRadius":0,"borderBottomRadius":0,"borderLeftRadius":0,"borderColor":"rgba(0,0,0,0)","opacity":100,"rotate":0,"hover":{"active":false,"transition":true,"transitionTime":3.8,"opacity":{"active":true,"value":100,"name":"opacity"},"zIndex":{"active":false,"value":0,"name":"zIndex"},"scale":{"active":true,"value":1,"name":"scale"},"blur":{"active":true,"value":0,"name":"blur"},"brightness":{"active":true,"value":1,"name":"brightness"},"text":{"active":false,"value":"","name":"text"}},"laptop":{"active":true,"width":98.74869655891554,"height":88.74643874643876,"left":0.83425,"top":9.00295},"phone":{"active":false,"width":20,"height":20,"left":10,"top":10}}],"vids":[],"htmls":[],"btns":[],"parallax":false,"img":"uploads/freestyledefault.png","video":"","color":"#080808","bg_type":"color","video_bg_loop":true,"video_bg_mute":true,"laptop":{"screen_height":0.75,"screen_ratio":0.48802083333333335,"lock_ratio":true},"phone":{"screen_height":0.75,"screen_ratio":1.7777777777777777,"lock_ratio":true}}],"_id":"61d880554766d0002aee08a7","chapterID":"61d862424766d0002aee0874","type":"סגנון חופשי","order":9,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\">וגם לערבית, רוסית - וכן - אפילו לאנגלית!</p>"}],"_id":"61d884654766d0002aee08aa","chapterID":"61d862424766d0002aee0874","type":"כותרת משנית","order":10,"content":"","__v":0},{"options":[{"txt":"<p style=\"text-align: center;\"><span style=\"font-size: 40px;\"><strong>למה Slice מתאים לנו?</strong></span></p>"}],"_id":"61d87b504766d0002aee089d","chapterID":"61d862424766d0002aee0874","type":"טקסט מעוצב מודגש","order":11,"content":"","__v":0},{"options":[{"content":"<p>פיתוח תוכן במהירות</p>","cheak":true},{"content":"<p>רספונסיביות למכשירים שונים</p>","cheak":true},{"content":"<p>דיווח על ביצועים מרחוק</p>","cheak":true},{"content":"<p>תאימות לעברית ולשפות נוספות</p>"}],"_id":"61d87b104766d0002aee089c","chapterID":"61d862424766d0002aee0874","type":"צק בוקס","order":12,"content":"","__v":0}];
+  var IE = msieversion();
+
+  var video_interactive = []
+
+  if(elements_arr){
+      elements_init(elements_arr);
+      init_freestyle_events();
+  }
+
+  if(video_interactive.length > 0){
+    video_interactive.forEach(function(element) {
+      console.log(element);
+      video_init(element._id,element);
+    });
+  }
+
+
+
+  console.log('video_interactive',video_interactive);
+
+
+  $('.carousel-inner .item:first').addClass('active');
+  $('.carousel-indicators li:first').addClass('active');
+
+
+
+  // $('.back9').css('transform','rotateY(0deg)');
+  // $('.front9').css('transform','rotateY(180deg)');
+
+
+    
+
+
+
+
+//  -- iframe on freestyle with chapter:
+  $(window).on('blur',function(e) {    
+    if($(this).data('mouseIn') != 'yes')return;
+    $('.GoToChapter iframe').filter(function(){
+        return $(this).data('mouseIn') == 'yes';
+    }).trigger('iframeclick');    
+});
+
+$(window).mouseenter(function(){          
+    $(this).data('mouseIn', 'yes');
+}).mouseleave(function(){
+    $(this).data('mouseIn', 'no');
+});
+
+$('.GoToChapter iframe').mouseenter(function(){
+    $(this).data('mouseIn', 'yes');
+    $(window).data('mouseIn', 'yes');
+}).mouseleave(function(){
+  $(window).focus();
+  $(this).data('mouseIn', null);
+});
+
+$('.GoToChapter iframe').on('iframeclick', function(){
+    // console.log('Clicked inside iframe',$(this).closest('.GoToChapter'));
+    $(this).closest('.GoToChapter').click();
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+$(".flip-container2").attr("data-flip","true");
+
+  $("[lang='x-empty-star']").removeClass("h-half-star-class")
+
+  var replaceAssets = document.getElementsByClassName("replaceAssets");
+for(var i = 0; i < replaceAssets.length; i++)
+{
+  // console.log('replaceAssets[i]',replaceAssets[i]);
+  var vidd = replaceAssets[i].outerHTML;
+  var vidSRC = vidd.replace('../../assets/', '');
+  replaceAssets[i].outerHTML = vidSRC;
+
+}
+
+
+$(".front5.backCard").addClass("back9");
+$(".front5.backCard").removeClass("front9");
+
+
+$(".flip-container3").addClass("flip-container2")
+$(".flip-container3").removeClass("flip-container3")
+
+$(".grid-third.cardshowdelet").removeClass("grid-third")
+$(".grid-row.min-hight-900-card").addClass("flex-around")
+
+$(".min-hight-900-card").removeClass("min-hight-900-card")
+
+$(".flip-container2").each(function () {
+
+  console.log("flip card")
+  var flipped = $(this).attr("data-flip");
+  var target = $(this).attr("data-target");
+  var inde = $(this).attr("data-inde");
+  console.log("sadasdasdasdasdasd", flipped)
+  var flipper = document.getElementById('flipper_' + target + '_' + inde);
+  if (flipper) {
+    var element = elements_arr.filter(function(el) {return el._id == target})[0];
+    var card = element.options[inde];
+    var front = document.getElementById('front_' + target + '_' + inde);
+    var back = document.getElementById('back_' + target + '_' + inde);
+    if (card.flip) {
+      flipper.style.transform = 'rotateY(0deg)';
+      if (IE) {
+        back.style.transform = 'rotateY(180deg)';
+        front.style.transform = 'rotateY(0deg)';
+      }
+    } else {
+      flipper.style.transform = 'rotateY(180deg)';
+      if (IE) {
+        front.style.transform = 'rotateY(180deg)';
+        back.style.transform = 'rotateY(0deg)';
+      }
+    }
+  } else {
+    if (flipped == "false") {
+
+      console.log('.back9[data-target=' + target + '][data-inde=' + inde + ']')
+      $('.back9[data-target=' + target + '][data-inde=' + inde + ']').css('transform', 'rotateY(0deg)');
+      $('.front9[data-target=' + target + '][data-inde=' + inde + ']').css('transform', 'rotateY(180deg)');
+
+      $(this).attr("data-flip", "true");
+      console.log('true part :' + flipped);
+    }
+    else {
+      $('.back9[data-target=' + target + '][data-inde=' + inde + ']').css('transform', 'rotateY(180deg)');
+      $('.front9[data-target=' + target + '][data-inde=' + inde + ']').css('transform', 'rotateY(0deg)');
+      $(this).attr("data-flip", "false");
+      console.log('else part :' + flipped);
+    }
+  }
+
+
+
+})
+
+  
+$(".cheakBoxS").prop("disabled",false);
+  $(".noshow").removeClass("noshow");
+$(".ansCheck2").addClass("ansCheck");
+$(".ansCheck2.yesNoansCheck").removeClass("ansCheck");
+$(".ansCheck2.yesNoansCheck").addClass("ansCheck3");
+$(".overflowDemo").removeClass("overflowDemo");
+
+
+
+
+$(document).on("click",".yesNoDiv",function(){
+
+  target=$(this).attr("data-target");
+  $(".yesNoDiv[data-target="+target+"]").removeClass("chosen");
+  $(this).addClass("chosen");
+$(".ansCheck3[data-target="+target+"]").removeClass("disableClass")
+});
+
+
+$(document).on("click",".ansCheck3",function(){
+  var target=$(this).attr("data-target");
+  var Answer=$(this).attr("data-Answer");
+
+  var element = elements_arr.filter(function(el) {return el._id == target})[0];
+
+  
+  var Qanswer=$(".yesNoDiv.chosen[data-target="+target+"]").attr("data-inde")
+ 
+ if(Qanswer == Answer){
+   console.log("good");
+   $(".feedback[data-target="+target+"]").removeClass("display-none");
+   $(".feedback[data-target="+target+"] .goodfeedback").removeClass("display-none");
+
+   $(".yesNoDiv.chosen[data-target="+target+"]").addClass("greenClass");
+   $(".yesNoDiv[data-target="+target+"]").addClass("disableClass");
+
+   $(".yesNoDiv.chosen[data-target="+target+"]").removeClass("disableClass")
+  // var conuntAns= $(".ansCheck").length
+  // var newsum=100/conuntAns;
+  // console.log(newsum,"conuntAns")
+  // moreScore(conuntAns);
+  moreScore(element.options[0].score);
+  console.log(window.realScore);
+
+ }else{
+   console.log("bed");
+   $(".feedback[data-target="+target+"]").removeClass("display-none");
+   $(".feedback[data-target="+target+"] .bedfeedback").removeClass("display-none");
+
+   $(".yesNoDiv.chosen[data-target="+target+"]").addClass("redClass");
+   $(".yesNoDiv[data-target="+target+"]").addClass("greenBorder");
+   $(".yesNoDiv.chosen[data-target="+target+"]").removeClass("greenBorder");
+
+   $(".yesNoDiv[data-target="+target+"]").addClass("disableClass");
+
+   $(".yesNoDiv.chosen[data-target="+target+"]").removeClass("disableClass")
+
+   moreScore(0);
+   console.log(window.realScore);
+
+ }
+
+ 
+
+
+
+ $(this).remove();
+
+})
+
+
+$(document).on( "click",".js-collapse-element",function(e) {
+ 
+  if($(this).hasClass("collapse-list-element--expanded")){
+    $(".js-collapse-element").removeClass("collapse-list-element--expanded");
+  }else{
+    $(".js-collapse-element").removeClass("collapse-list-element--expanded");
+    $(this).toggleClass("collapse-list-element--expanded");
+  }
+
+})
+})
+
+
+var caruselIRight = document.getElementsByClassName("caruselIRight");
+var caruselILeft = document.getElementsByClassName("caruselILeft");
+for(var i = 0; i < caruselILeft.length; i++){
+  caruselILeft[i].style.display = "none";
+}
+setTimeout(function(){
+for(var i = 0; i < caruselIRight.length; i++){
+    caruselIRight[i].style.display = "block";
+}
+},1000)
+
+
+var caruselIndicator = document.getElementsByClassName("caruselIndicator");
+for(var i = 0; i < caruselIndicator.length; i++)
+{
+  caruselIndicator[i].classList.remove("active");
+  if(i == 0){
+    caruselIndicator[i].classList.add("active");
+  }
+}
+
+
+
+var replaceAssets = document.getElementsByClassName("replaceAssets");
+for(var i = 0; i < replaceAssets.length; i++)
+{
+  // console.log('replaceAssets[i]',replaceAssets[i]);
+  var vidd = replaceAssets[i].outerHTML;
+  var vidSRC = vidd.replace('../../assets/', '');
+  replaceAssets[i].outerHTML = vidSRC;
+
+}
+
+
+
+
+var itemCarusel = document.getElementsByClassName("item");
+
+for(var i = 0; i < itemCarusel.length; i++)
+{
+  itemCarusel[i].classList.remove("active");
+  if(i == 0){
+    itemCarusel[i].classList.add("active");
+  }
+}
+
+
+</script>
+
+
+  <style>
+  /* hebrew */ @font-face {     font-family: 'Assistant';     font-style: normal;     font-weight: 400;     font-display: swap;     src: local('Assistant'), local('Assistant-Regular'), url(./fonts/theme/2sDcZGJYnIjSi6H75xkzamW5Kb8VZBHR.woff2) format('woff2');     unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;   }   /* latin */   @font-face {     font-family: 'Assistant';     font-style: normal;     font-weight: 400;     font-display: swap;     src: local('Assistant'), local('Assistant-Regular'), url(./fonts/theme/2sDcZGJYnIjSi6H75xkzaGW5Kb8VZA.woff2) format('woff2');     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;   }   /* hebrew */   @font-face {     font-family: 'Assistant';     font-style: bold;     font-weight: 700;     font-display: swap;     src: local('Assistant Bold'), local('Assistant-Bold'), url(./fonts/theme/2sDZZGJYnIjSi6H75xk700CsBp0YTivYthYl.woff2) format('woff2');     unicode-range: U+0590-05FF, U+20AA, U+25CC, U+FB1D-FB4F;   }   /* latin */   @font-face {     font-family: 'Assistant';     font-style: bold;     font-weight: 700;     font-display: swap;     src: local('Assistant Bold'), local('Assistant-Bold'), url(./fonts/theme/2sDZZGJYnIjSi6H75xk700CsBJ0YTivYtg.woff2) format('woff2');     unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;   }  body, html, .clientFont button, .clientFont input, .clientFont optgroup, .clientFont select, .clientFont textarea, .template-container, .tempalte-h3, .template-p-with-h3, .fontSize600, .chapterNameInput, .tempalte-2p-left, .tempalte-2p-right, .template-p, .tempalte-h4, .template-note-circle, .template-quote-autor, .template-small-circle, .template-note-container, .fr-element, .fr-element p, .fr-element strong, .fr-element u, .fr-element s, .fr-element a, .fr-element line, li.templater-li-numbers::before, a, .P-Poa, .P-Poa span, .P-Poa p, .template-container p, .fr-element p, .fr-element, .fr-view, .fr-view p, .H1-Poa, .prevchapter, .nextchpatername, .font-size-18px, h1 { 	box-sizing: border-box; 	-moz-box-sizing: border-box; 	-webkit-box-sizing: border-box; 	font-family: 'Assistant' !important; 	font-weight: normal; 	font-style: normal; 	/* direction: rtl;          line-height: 1.5;*/ } a, li, span, p, .P-Poa, .P-Poa span, .P-Poa p { 	font-family: 'Assistant'; 	font-weight: normal; 	font-style: normal; } strong { 	font-family: 'Assistant'!important; 	font-weight: bold !important; } .font-bold-p p { 	font-family: 'Assistant'!important; 	font-weight: bold !important; } .font-light-p p { 	font-family: 'Assistant'!important; } .qut-font { 	font-family: "Assistant"; } .MarkPro { 	font-family: "Assistant"; } .MarkWebProBook-font { 	font-family: "Assistant", sans-serif; }
+
+  
+
+
+ body .chet-full:after {
+    border-right-color: #e7c584;
+}
+
+
+  body .panel-heading[aria-expanded="true"]{
+    border-color: #202d90!important;
+  }
+body a:hover{
+    color: #202d90 !important;
+  }
+
+  html body .ratingText {
+    font-size: 20px !important;
+    color: #000000;
+
+  }
+ body .panel-heading.transition-05.collapsed.tabs.activeTab{
+    border-right: 2px solid #202d90 !important;
+  }
+
+ body .line li:before,
+ body .circle li:before,
+ body .bulets li:before,
+ body .chet-outline
+{
+background: #202d90 !important;
+}
+
+body .circle li:before {right: -20px;
+}
+
+body .bulets li:before {right: -10px;
+}
+
+
+body .chet-outline:after {
+  border-left-color: #202d90;
+
+}
+
+button.ansans{
+  right: -20px;
+      }
+      button.ansans2{
+  right: -20px;
+      }
+
+  .template-container{
+    margin: 22px 0px;
+  }
+  elementMargin
+
+
+   html body .themeControl-modal{
+      background:#ffffff !important;
+    }
+
+    .box-shadow {
+      box-shadow:0 2px 6px rgba(0, 0, 0, 0.4) !important;
+  }
+  
+
+    .progMenuLi {
+      right: 0px;
+  }
+
+
+    .template-container {
+      direction: rtl !important;
+    }
+
+
+    .btn.cta.ansCheck2{
+      direction: rtl !important;
+    }
+    
+
+    html,
+    body {
+  direction: rtl !important;
+  text-align: right !important;
+  font-size: 15px;
+  color: #000000 !important;
+  word-break: break-word !important;
+  background-color:  #ffffff !important;
+    }
+
+    html body p {
+      font-size: 20px !important;
+      word-break: break-word !important;
+  }
+
+  .menu-header-bg h1{
+    text-align:  right !important;
+    direction: rtl !important;
+  }
+
+  .border-radius-BB {
+    border-radius: 20pxpx !important;
+}
+
+.border-radius-BB::after {
+  border-radius: 20pxpx;
+}
+
+.border-radius-BB-right{
+  border-radius: 0px 20pxpx 20pxpx 0px;
+}
+
+/* primary */
+
+.bg-color-primary {
+  background: #202d90 !important;
+  background-color: #202d90 !important;
+}
+
+
+body .carousel-indicators .active{
+  background: #202d90 !important;
+  background-color: #202d90 !important;
+}
+
+.hoverBgPrimary:hover {
+background: #202d90!important;
+color: white;
+}
+
+
+/* secondary */
+
+.bg-color-secondary,
+.chet-full {
+  background: #e7c584!important;
+  color: white !important;
+}
+
+
+.hoverBgSecondary:hover {
+  background: #e7c584!important;
+  color: white;
+}
+
+/* lock-chapter */
+
+.lock-chapter:hover {
+  background: null!important;
+  color: #e7c584!important;
+}
+
+/* chapter title background */
+
+.bg-light-color {
+background: null!important;
+}
+
+.border-light-color {
+border: 1px solid null!important;
+}
+
+.bg-light-color-top {
+background: #eeeeee;
+}
+
+/* course Title */
+
+.bigFont {
+font-size: 3.8rem!important;
+font-weight: bold;
+text-align:  right !important;
+margin-left: 0px;
+margin-right: 0px;
+}
+
+/* chapter Title  & big title block*/
+
+.chapter-title{
+font-size: 2.8rem!important;
+}
+
+/* chapter secondary Title */
+
+html body .tempalte-h4 p{
+font-size: 1.8rem!important;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+margin-top: 0;
+margin-bottom: .5em;
+color: #000000;
+font-weight: 500;
+}
+
+.panel-heading.transition-05.collapsed div{
+  font-size: 20px !important;
+    word-break: break-word !important;
+}
+
+body .panel-heading.transition-05.collapsed.tabs  {
+  float: right!important;
+}
+
+
+  </style>   
+</body>
+
+</html>  
